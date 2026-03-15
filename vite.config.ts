@@ -18,6 +18,8 @@
         'lucide-react@0.487.0': 'lucide-react',
         'input-otp@1.4.2': 'input-otp',
         'figma:asset/fd737180328e8fa51dd6d9de778b078d776dc489.png': path.resolve(__dirname, './src/assets/fd737180328e8fa51dd6d9de778b078d776dc489.png'),
+        'figma:asset/4bae5343f63d2a18ca9a60eddf4b0b1dc696d0ce.png': path.resolve(__dirname, './src/assets/4bae5343f63d2a18ca9a60eddf4b0b1dc696d0ce.png'),
+        'figma:asset/4bb15d85dd98a76e4ec0d4c026ff64bcfb9ed7c3.png': path.resolve(__dirname, './src/assets/4bb15d85dd98a76e4ec0d4c026ff64bcfb9ed7c3.png'),
         'figma:asset/f05cd56ad70dcc00ad42222212576e439dc26ee5.png': path.resolve(__dirname, './src/assets/f05cd56ad70dcc00ad42222212576e439dc26ee5.png'),
         'figma:asset/ee57e1d947aacfbcbe92a9ee9d8e52963ddfe862.png': path.resolve(__dirname, './src/assets/ee57e1d947aacfbcbe92a9ee9d8e52963ddfe862.png'),
         'figma:asset/ebec16c47ac04cd1e1853b109d5159b1b3455ca0.png': path.resolve(__dirname, './src/assets/ebec16c47ac04cd1e1853b109d5159b1b3455ca0.png'),

@@ -43,7 +43,7 @@ export function CaseStudySportworx() {
             transition={{ duration: 0.8 }}
             className="text-center mb-8"
           >
-            <div className="inline-block bg-[#BEF264]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <div className="inline-block bg-[#6FE866]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               Event Organizer • Netherlands
             </div>
             <div className="flex items-center justify-center gap-4 mb-6">
@@ -71,7 +71,7 @@ export function CaseStudySportworx() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-6 border border-gray-200"
               >
-                <metric.icon className="w-8 h-8 text-[#BEF264] mb-3" />
+                <metric.icon className="w-8 h-8 text-[#6FE866] mb-3" />
                 <div className="text-lg font-bold text-gray-900 mb-1">{metric.label}</div>
                 <div className="text-gray-600 text-sm">{metric.description}</div>
               </motion.div>
@@ -119,19 +119,19 @@ export function CaseStudySportworx() {
             <p className="text-lg text-gray-700 leading-relaxed mb-4">For Sportworx, the goal at QKOTC was to:</p>
             <ul className="space-y-3 text-lg text-gray-700 mb-8">
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Make live attendance feel <strong>more interactive and memorable</strong></span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Increase fan engagement without disrupting the game</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Extend event visibility <strong>beyond the venue</strong></span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Deliver sponsors more than on-site branding — <strong>digital reach with attention</strong></span>
               </li>
             </ul>
@@ -162,25 +162,25 @@ export function CaseStudySportworx() {
             <p className="text-lg text-gray-700 leading-relaxed mb-4 font-semibold">Fans could:</p>
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-6 h-6 rounded-full bg-[#BEF264] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-[#6FE866] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check className="w-4 h-4 text-gray-900" />
                 </div>
                 <p className="text-lg text-gray-700 pt-0.5">Scan a courtside QR code</p>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-6 h-6 rounded-full bg-[#BEF264] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-[#6FE866] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check className="w-4 h-4 text-gray-900" />
                 </div>
                 <p className="text-lg text-gray-700 pt-0.5">Mint time-stamped personalized digital collectibles ("moments")</p>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-6 h-6 rounded-full bg-[#BEF264] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-[#6FE866] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check className="w-4 h-4 text-gray-900" />
                 </div>
                 <p className="text-lg text-gray-700 pt-0.5">Share them instantly online</p>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-6 h-6 rounded-full bg-[#BEF264] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-[#6FE866] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Check className="w-4 h-4 text-gray-900" />
                 </div>
                 <p className="text-lg text-gray-700 pt-0.5">Compete on a live leaderboard and unlock surprise perks</p>
@@ -253,7 +253,7 @@ export function CaseStudySportworx() {
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
               Fancard introduced <strong>Sponsor Moments</strong>:
             </p>
-            <div className="bg-gradient-to-br from-[#BEF264]/10 to-[#86EFAC]/10 rounded-2xl p-8 border border-gray-200 mb-8">
+            <div className="bg-gradient-to-br from-[#6FE866]/10 to-[#8FF888]/10 rounded-2xl p-8 border border-gray-200 mb-8">
               <p className="text-2xl text-gray-900 font-bold mb-4">
                 Branded collectible frames integrated directly into fan-created content
               </p>
@@ -265,19 +265,19 @@ export function CaseStudySportworx() {
             <p className="text-lg text-gray-700 leading-relaxed mb-4 font-semibold">Why this matters for sponsor ROI:</p>
             <div className="space-y-3 mb-6">
               <div className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span className="text-lg text-gray-700">Fans generate organic impressions (earned media)</span>
               </div>
               <div className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span className="text-lg text-gray-700">Branded frames appear in high-attention content (a personal moment)</span>
               </div>
               <div className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span className="text-lg text-gray-700">Sponsor visibility travels to audiences who aren't inside the arena</span>
               </div>
               <div className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span className="text-lg text-gray-700">Reach continues after the event ends (posts stay live, reshares continue)</span>
               </div>
             </div>
@@ -306,15 +306,15 @@ export function CaseStudySportworx() {
             <p className="text-lg text-gray-700 leading-relaxed mb-4">Fancard made fans feel like active participants by:</p>
             <ul className="space-y-3 text-lg text-gray-700">
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Rewarding sharing through a <strong>live leaderboard</strong></span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Creating a feeling of "capture it now" urgency</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Making every big rally a moment fans could own forever</span>
               </li>
             </ul>
@@ -331,12 +331,12 @@ export function CaseStudySportworx() {
             viewport={{ once: true }}
             className="bg-gray-50 rounded-2xl p-8 sm:p-12 border border-gray-200"
           >
-            <div className="text-4xl sm:text-5xl text-[#BEF264] mb-6">"</div>
+            <div className="text-4xl sm:text-5xl text-[#6FE866] mb-6">"</div>
             <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed mb-8">
               Fancard transforms passive viewing into an interactive game that travels with you long after the final whistle.
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#BEF264] to-[#86EFAC] rounded-full flex items-center justify-center text-2xl font-bold text-gray-900">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#6FE866] to-[#8FF888] rounded-full flex items-center justify-center text-2xl font-bold text-gray-900">
                 L
               </div>
               <div>
@@ -407,28 +407,28 @@ export function CaseStudySportworx() {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Sparkles className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Instant</h3>
                 <p className="text-gray-600">QR → moment created in seconds</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Users className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Emotional</h3>
                 <p className="text-gray-600">Fans capture the exact highlight they loved</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Share2 className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Shareable</h3>
                 <p className="text-gray-600">Designed for social-native reach</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <TrendingUp className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Sponsor-Friendly</h3>
@@ -446,7 +446,7 @@ export function CaseStudySportworx() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-[#BEF264]/10 to-[#86EFAC]/10 rounded-2xl p-8 sm:p-12 border border-gray-200"
+            className="bg-gradient-to-br from-[#6FE866]/10 to-[#8FF888]/10 rounded-2xl p-8 sm:p-12 border border-gray-200"
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Conclusion</h2>
             <p className="text-xl sm:text-2xl text-gray-900 leading-relaxed mb-6 font-medium">
@@ -473,7 +473,7 @@ export function CaseStudySportworx() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Ready to Transform <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Your Event Experience?</span>
+              Ready to Transform <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Your Event Experience?</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Join Sportworx and leading event organizers in creating interactive digital moments that amplify sponsor reach and fan engagement.

@@ -42,7 +42,7 @@ export function CaseStudyLifeAfterFootball() {
             transition={{ duration: 0.8 }}
             className="text-center mb-8"
           >
-            <div className="inline-block bg-[#BEF264]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <div className="inline-block bg-[#6FE866]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               Lifestyle Brand • Netherlands
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -77,7 +77,7 @@ export function CaseStudyLifeAfterFootball() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-6 border border-gray-200"
               >
-                <metric.icon className="w-8 h-8 text-[#BEF264] mb-3" />
+                <metric.icon className="w-8 h-8 text-[#6FE866] mb-3" />
                 <div className="text-lg font-bold text-gray-900 mb-1">{metric.label}</div>
                 <div className="text-gray-600 text-sm">{metric.description}</div>
               </motion.div>
@@ -105,19 +105,19 @@ export function CaseStudyLifeAfterFootball() {
             <p className="text-lg text-gray-700 leading-relaxed mb-4">LAF wanted to:</p>
             <ul className="space-y-3 text-lg text-gray-700">
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Increase online reach during the event</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Get more branded content shared by attendees</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Add visibility without adding more physical sponsor clutter</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Create a premium activation that matched the event's red carpet atmosphere</span>
               </li>
             </ul>
@@ -262,28 +262,28 @@ export function CaseStudyLifeAfterFootball() {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Users className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Natural Behavior</h3>
                 <p className="text-gray-600">People already want to take photos at these events</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Sparkles className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Exclusive Setting</h3>
                 <p className="text-gray-600">The setting already feels exclusive and "worth sharing"</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <TrendingUp className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Instant Branding</h3>
                 <p className="text-gray-600">Fancard added instant branding + a reason to post</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Share2 className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Guest-Powered Reach</h3>
@@ -301,7 +301,7 @@ export function CaseStudyLifeAfterFootball() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-[#BEF264]/10 to-[#86EFAC]/10 rounded-2xl p-8 sm:p-12 border border-gray-200"
+            className="bg-gradient-to-br from-[#6FE866]/10 to-[#8FF888]/10 rounded-2xl p-8 sm:p-12 border border-gray-200"
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Key Takeaway</h2>
             <p className="text-xl sm:text-2xl text-gray-900 leading-relaxed mb-6 font-medium">
@@ -328,7 +328,7 @@ export function CaseStudyLifeAfterFootball() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Want to Create a Branded Moment at <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Your Next Event?</span>
+              Want to Create a Branded Moment at <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Your Next Event?</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Fancard helps sports and lifestyle brands activate fans and attendees through shareable digital experiences that generate real reach and measurable engagement.

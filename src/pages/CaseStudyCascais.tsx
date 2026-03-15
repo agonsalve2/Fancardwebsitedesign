@@ -45,7 +45,7 @@ export function CaseStudyCascais() {
             transition={{ duration: 0.8 }}
             className="text-center mb-8"
           >
-            <div className="inline-block bg-[#BEF264]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <div className="inline-block bg-[#6FE866]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               Portuguese 6th Division • Football Club
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -80,7 +80,7 @@ export function CaseStudyCascais() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-6 border border-gray-200"
               >
-                <metric.icon className="w-8 h-8 text-[#BEF264] mb-3" />
+                <metric.icon className="w-8 h-8 text-[#6FE866] mb-3" />
                 <div className="text-lg font-bold text-gray-900 mb-1">{metric.label}</div>
                 <div className="text-gray-600 text-sm">{metric.description}</div>
               </motion.div>
@@ -128,19 +128,19 @@ export function CaseStudyCascais() {
             <p className="text-lg text-gray-700 leading-relaxed mb-4">Cascais wanted to:</p>
             <ul className="space-y-3 text-lg text-gray-700">
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Engage fans <strong>during the live event</strong></span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Encourage social sharing and brand visibility</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Capture data like <strong>fan location</strong> and engagement behavior</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Build loyalty and modernize the matchday experience</span>
               </li>
             </ul>
@@ -150,7 +150,7 @@ export function CaseStudyCascais() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-[#BEF264]/10 to-[#86EFAC]/10 rounded-2xl p-8 border border-gray-200"
+            className="bg-gradient-to-br from-[#6FE866]/10 to-[#8FF888]/10 rounded-2xl p-8 border border-gray-200"
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-4">The Opportunity: A New International Audience</h3>
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
@@ -338,7 +338,7 @@ export function CaseStudyCascais() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Results (Highlights)</h2>
-            <div className="bg-gradient-to-br from-[#BEF264]/10 to-[#86EFAC]/10 rounded-2xl p-8 border border-gray-200">
+            <div className="bg-gradient-to-br from-[#6FE866]/10 to-[#8FF888]/10 rounded-2xl p-8 border border-gray-200">
               <ul className="space-y-4 text-lg text-gray-700">
                 <li className="flex items-start gap-3">
                   <span className="text-2xl">✅</span>
@@ -384,21 +384,21 @@ export function CaseStudyCascais() {
             </p>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Zap className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Live Matchday Excitement</h3>
                 <p className="text-gray-600">Fans are most emotionally engaged in real time</p>
               </div>
               <div className="bg-white rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <Users className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Simple QR Flow</h3>
                 <p className="text-gray-600">Instant and frictionless participation</p>
               </div>
               <div className="bg-white rounded-xl p-6 border border-gray-200">
-                <div className="w-12 h-12 rounded-xl bg-[#BEF264] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#6FE866] flex items-center justify-center mb-4">
                   <TrendingUp className="w-6 h-6 text-gray-900" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Shareable Branded Content</h3>
@@ -418,7 +418,7 @@ export function CaseStudyCascais() {
             viewport={{ once: true }}
             className="bg-white rounded-2xl p-8 sm:p-12 border-2 border-gray-200 shadow-lg"
           >
-            <div className="text-6xl text-[#BEF264] mb-6 leading-none">"</div>
+            <div className="text-6xl text-[#6FE866] mb-6 leading-none">"</div>
             <p className="text-2xl sm:text-3xl text-gray-900 leading-relaxed mb-8 font-medium">
               Fancard is a great tool for connecting the club's activities with its fans - both local and international.
             </p>
@@ -446,7 +446,7 @@ export function CaseStudyCascais() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Want to Activate Your Fans <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Like Cascais?</span>
+              Want to Activate Your Fans <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Like Cascais?</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Fancard helps clubs and sports teams engage fans during live events while capturing valuable insights that power future campaigns, sponsorship activations, and fan growth.

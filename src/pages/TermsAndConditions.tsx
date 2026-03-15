@@ -33,8 +33,8 @@ export function TermsAndConditions() {
               <section>
                 <p className="leading-relaxed">
                   Fancard B.V., Stroombaan 4 (1181 VX) Amstelveen, the Netherlands (<strong className="text-gray-900">"Fancard"</strong>) is a Dutch company that develops and exploits software products for consumers, such as the Fancard application (<strong className="text-gray-900">"Application"</strong>) and the corresponding websites{' '}
-                  <a href="https://www.fancard.me" className="text-[#BEF264] hover:underline" target="_blank" rel="noopener noreferrer">www.fancard.me</a> and{' '}
-                  <a href="https://app.fancard.me" className="text-[#BEF264] hover:underline" target="_blank" rel="noopener noreferrer">app.fancard.me</a>.
+                  <a href="https://www.fancard.me" className="text-[#6FE866] hover:underline" target="_blank" rel="noopener noreferrer">www.fancard.me</a> and{' '}
+                  <a href="https://app.fancard.me" className="text-[#6FE866] hover:underline" target="_blank" rel="noopener noreferrer">app.fancard.me</a>.
                   The Application provides insights to prepare for meetings efficiently. The Application is a web-based service which is digitally offered to users from 16 years and older. The use of the Application is subject to the terms and conditions below. Using the Application constitutes acceptance of these terms and conditions.
                 </p>
                 <p className="leading-relaxed mt-4">

@@ -163,10 +163,10 @@ export function HowItWorksAlt({ onBookDemo }: HowItWorksAltProps) {
           className="mb-12 sm:mb-16 grid md:grid-cols-2 gap-6 md:gap-12 items-end"
         >
           <div>
-            <div className="text-[#BEF264] text-sm uppercase tracking-wider mb-4 font-semibold">HOW IT WORKS</div>
+            <div className="text-[#6FE866] text-sm uppercase tracking-wider mb-4 font-semibold">HOW IT WORKS</div>
             <h2 className="text-gray-900 font-bold leading-tight text-[48px]">
               Branded Campaigns{' '}
-              <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">
                 Your Fans Love
               </span>
             </h2>
@@ -202,7 +202,7 @@ export function HowItWorksAlt({ onBookDemo }: HowItWorksAltProps) {
                 {active === i && (
                   <div
                     ref={progressRef}
-                    className="absolute bottom-0 left-0 h-[3px] bg-[#BEF264] rounded-full"
+                    className="absolute bottom-0 left-0 h-[3px] bg-[#6FE866] rounded-full"
                     style={{
                       width: progressWidth,
                       transition: transitionDuration === 0 ? 'none' : `width ${transitionDuration}s linear`,
@@ -234,7 +234,7 @@ export function HowItWorksAlt({ onBookDemo }: HowItWorksAltProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="ml-auto w-2 h-2 rounded-full bg-[#BEF264]"
+                    className="ml-auto w-2 h-2 rounded-full bg-[#6FE866]"
                   />
                 )}
               </button>

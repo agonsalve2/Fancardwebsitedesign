@@ -1,34 +1,20 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { 
-  Database, 
-  TrendingUp, 
-  Users, 
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
+import {
   ArrowRight,
-  Palette,
-  QrCode,
-  BarChart3,
-  Trophy,
-  Play
+  Play,
+  Menu,
+  X
 } from 'lucide-react';
+import { Link } from 'react-router';
 import { Button } from '../components/ui/button';
 import { BookDemoDialog } from '../components/BookDemoDialog';
-import { useState, useRef } from 'react';
-import heroVideoImage from 'figma:asset/4bb15d85dd98a76e4ec0d4c026ff64bcfb9ed7c3.png';
+import { useState, useRef, useEffect } from 'react';
 import goncaloImage from 'figma:asset/b2d04521a989759d87eb9a5ccedc99d7a5e8da65.png';
 import lucasImage from 'figma:asset/ebec16c47ac04cd1e1853b109d5159b1b3455ca0.png';
-import { HeroFanCardDisplay } from '../components/HeroFanCardDisplay';
 import { PartnerSlider } from '../components/PartnerSlider';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { HowItWorksAlt } from '../components/HowItWorksAlt';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../components/ui/carousel';
 
-// Actual Fancard graphics - verified working
+// Fancard images for the hero background
 import cascaisFancard1 from 'figma:asset/e9796bab216c855789eaba4da1b5e2aae0cdc5ee.png';
 import cascaisFancard2 from 'figma:asset/6a560fc3086fe4114b4ea82503ed3a06ef7e3d6f.png';
 import cascaisFancard3 from 'figma:asset/ee57e1d947aacfbcbe92a9ee9d8e52963ddfe862.png';
@@ -40,444 +26,605 @@ import lafFancard2 from 'figma:asset/8d65b1cc55257b5972296c8edbf1947171afbd46.pn
 import lafFancard3 from 'figma:asset/b080cb6a7a16438266b0abd5a6ac810b4e27fa7e.png';
 import ballerMarketPromo1 from 'figma:asset/953729f053e165eb4313dee5ba93b31eac681909.png';
 import ballerMarketPromo2 from 'figma:asset/948086022b07218b5b69aa0554c5b0dfabce40f2.png';
+import fancardExample from '../assets/fancard-example.jpg';
+
+// All card images for the grid mosaic
+const allCardImages = [
+  cascaisFancard1, sportworxFancard1, lafFancard1, fancardExample, ballerMarketPromo1,
+  cascaisFancard2, sportworxFancard2, lafFancard2, ballerMarketPromo2, cascaisFancard3,
+  sportworxFancard3, lafFancard3, cascaisFancard1, fancardExample, sportworxFancard1,
+  lafFancard1, ballerMarketPromo1, cascaisFancard2, sportworxFancard2, lafFancard2,
+  ballerMarketPromo2, cascaisFancard3, sportworxFancard3, lafFancard3, fancardExample,
+  cascaisFancard1, sportworxFancard1, lafFancard1, cascaisFancard2, ballerMarketPromo1,
+];
+
+// Slight rotations for each card to give organic feel
+const cardRotations = [
+  -3, 2, -1, 3, -2, 1, -3, 2, -1, 3,
+  2, -2, 1, -3, 2, -1, 3, -2, 1, -3,
+  -1, 3, -2, 1, -3, 2, -1, 3, -2, 1,
+];
+
+// Depth values for parallax (0 = no movement, 1 = max movement)
+const cardDepths = [
+  0.3, 0.6, 0.2, 0.5, 0.4, 0.7, 0.3, 0.5, 0.2, 0.6,
+  0.4, 0.3, 0.7, 0.2, 0.5, 0.6, 0.3, 0.4, 0.7, 0.2,
+  0.5, 0.3, 0.6, 0.4, 0.2, 0.7, 0.5, 0.3, 0.6, 0.4,
+];
+
+const hiwSteps = [
+  {
+    number: '01',
+    eyebrow: 'STEP 01',
+    title: 'Create Your Campaign',
+    description: 'Design branded templates with your logos, sponsors, and custom themes using our intuitive dashboard.',
+    accent: '#6FE866',
+  },
+  {
+    number: '02',
+    eyebrow: 'STEP 02',
+    title: 'Deploy at Events',
+    description: 'Share QR codes at your venue — on screens, tickets, or signage. Fans scan to instantly join.',
+    accent: '#22D3EE',
+  },
+  {
+    number: '03',
+    eyebrow: 'STEP 03',
+    title: 'Capture Unique Data',
+    description: "Access engagement metrics, sentiment insights, and fan data that's impossible to get anywhere else.",
+    accent: '#E879F9',
+  },
+  {
+    number: '04',
+    eyebrow: 'STEP 04',
+    title: 'Build Your Fan Database',
+    description: 'Collect verified fan contact information and build a direct relationship with your most engaged supporters.',
+    accent: '#FB923C',
+  },
+];
+
+// SVG geometry components per step
+function GeometryCreate({ accent }: { accent: string }) {
+  return (
+    <svg viewBox="0 0 400 400" className="w-full h-full" style={{ maxWidth: 400, maxHeight: 400 }}>
+      {/* Concentric dashed circles */}
+      {[80, 130, 180].map((r, i) => (
+        <motion.circle
+          key={r}
+          cx={200} cy={200} r={r}
+          fill="none" stroke={accent} strokeWidth={1} strokeDasharray="8 6"
+          opacity={0.4}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.4 }}
+          transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+        />
+      ))}
+      {/* Crosshair lines */}
+      <motion.line x1={200} y1={10} x2={200} y2={390} stroke={accent} strokeWidth={0.5} opacity={0.2}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1 }} />
+      <motion.line x1={10} y1={200} x2={390} y2={200} stroke={accent} strokeWidth={0.5} opacity={0.2}
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1 }} />
+      {/* Centre dot with pulse */}
+      <circle cx={200} cy={200} r={6} fill={accent} />
+      <motion.circle cx={200} cy={200} r={6} fill="none" stroke={accent} strokeWidth={1.5}
+        animate={{ r: [6, 20, 6], opacity: [0.8, 0, 0.8] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }} />
+      {/* Cardinal dots */}
+      {[[200, 120], [200, 280], [120, 200], [280, 200]].map(([cx, cy], i) => (
+        <motion.circle key={i} cx={cx} cy={cy} r={3} fill={accent}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 0.5 + i * 0.1 }} />
+      ))}
+    </svg>
+  );
+}
+
+function GeometryDeploy({ accent }: { accent: string }) {
+  const dots: [number, number, boolean][] = [];
+  for (let row = 0; row < 7; row++) {
+    for (let col = 0; col < 6; col++) {
+      dots.push([60 + col * 48, 60 + row * 42, Math.random() > 0.4]);
+    }
+  }
+  return (
+    <svg viewBox="0 0 400 400" className="w-full h-full" style={{ maxWidth: 400, maxHeight: 400 }}>
+      {dots.map(([cx, cy, filled], i) => (
+        <motion.circle key={i} cx={cx} cy={cy} r={4}
+          fill={filled ? accent : 'none'} stroke={accent} strokeWidth={filled ? 0 : 1}
+          opacity={0.6}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.6 }}
+          transition={{ delay: i * 0.01, duration: 0.3 }}
+        />
+      ))}
+      {/* Scan line */}
+      <motion.line x1={40} y1={0} x2={360} y2={0} stroke={accent} strokeWidth={2} opacity={0.3}
+        animate={{ y1: [40, 360, 40], y2: [40, 360, 40] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.rect x={40} width={320} height={30} fill={`url(#scanGlow)`} opacity={0.15}
+        animate={{ y: [30, 350, 30] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+      />
+      <defs>
+        <linearGradient id="scanGlow" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={accent} stopOpacity="0" />
+          <stop offset="50%" stopColor={accent} stopOpacity="0.4" />
+          <stop offset="100%" stopColor={accent} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+function GeometryCapture({ accent }: { accent: string }) {
+  return (
+    <svg viewBox="0 0 400 400" className="w-full h-full" style={{ maxWidth: 400, maxHeight: 400 }}>
+      {/* Orbital rings */}
+      {[{ r: 70, dur: 7, dir: 1 }, { r: 110, dur: 10.5, dir: -1 }, { r: 150, dur: 14, dir: 1 }].map((ring, i) => (
+        <motion.circle key={i} cx={200} cy={200} r={ring.r}
+          fill="none" stroke={accent} strokeWidth={1} strokeDasharray="6 4"
+          opacity={0.35}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.35, rotate: ring.dir * 360 }}
+          transition={{ opacity: { duration: 0.5 }, rotate: { duration: ring.dur, repeat: Infinity, ease: 'linear' } }}
+          style={{ transformOrigin: '200px 200px' }}
+        />
+      ))}
+      {/* Central node */}
+      <circle cx={200} cy={200} r={8} fill={accent} opacity={0.9} />
+      <motion.circle cx={200} cy={200} r={8} fill="none" stroke={accent} strokeWidth={1}
+        animate={{ r: [8, 18, 8], opacity: [0.6, 0, 0.6] }}
+        transition={{ duration: 2.5, repeat: Infinity }} />
+      {/* Orbital dots */}
+      <motion.circle cx={200} cy={130} r={4} fill={accent}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+        style={{ transformOrigin: '200px 200px' }} />
+      <motion.circle cx={200} cy={90} r={3} fill={accent} opacity={0.7}
+        animate={{ rotate: -360 }}
+        transition={{ duration: 10.5, repeat: Infinity, ease: 'linear' }}
+        style={{ transformOrigin: '200px 200px' }} />
+    </svg>
+  );
+}
+
+function GeometryBuild({ accent }: { accent: string }) {
+  const nodes: [number, number, number][] = [
+    [200, 200, 10], [130, 140, 6], [270, 150, 6], [150, 270, 6],
+    [260, 260, 6], [100, 210, 5], [300, 200, 5],
+  ];
+  const lines: [number, number, number, number][] = [
+    [200, 200, 130, 140], [200, 200, 270, 150], [200, 200, 150, 270],
+    [200, 200, 260, 260], [200, 200, 100, 210], [200, 200, 300, 200],
+    [130, 140, 100, 210], [270, 150, 300, 200], [150, 270, 260, 260],
+    [130, 140, 270, 150],
+  ];
+  return (
+    <svg viewBox="0 0 400 400" className="w-full h-full" style={{ maxWidth: 400, maxHeight: 400 }}>
+      {lines.map(([x1, y1, x2, y2], i) => (
+        <motion.line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+          stroke={accent} strokeWidth={0.8} opacity={0.25}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.25 }}
+          transition={{ delay: 0.3 + i * 0.05 }}
+        />
+      ))}
+      {nodes.map(([cx, cy, r], i) => (
+        <g key={i}>
+          <motion.circle cx={cx} cy={cy} r={r} fill={accent} opacity={0.8}
+            initial={{ scale: 0 }} animate={{ scale: 1 }}
+            transition={{ delay: 0.2 + i * 0.08, type: 'spring', stiffness: 200 }}
+          />
+          <motion.circle cx={cx} cy={cy} r={r} fill="none" stroke={accent} strokeWidth={1}
+            animate={{ r: [r, r + 10, r], opacity: [0.4, 0, 0.4] }}
+            transition={{ duration: 2 + i * 0.3, repeat: Infinity, delay: i * 0.2 }}
+          />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+const stepGeometries = [GeometryCreate, GeometryDeploy, GeometryCapture, GeometryBuild];
+
+// Animated character-by-character text
+function AnimatedTitle({ text }: { text: string }) {
+  return (
+    <h2 className="text-gray-900 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+      {text.split('').map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 80 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -40 }}
+          transition={{
+            duration: 0.6,
+            delay: i * 0.018,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : undefined }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </h2>
+  );
+}
+
+function HowItWorksSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Derive active step from scroll progress (4 steps = 4 zones)
+  const [activeStep, setActiveStep] = useState(0);
+  const scrollProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  useEffect(() => {
+    const unsubscribe = scrollProgress.on('change', (v) => {
+      const step = Math.min(Math.floor(v * hiwSteps.length), hiwSteps.length - 1);
+      setActiveStep(Math.max(0, step));
+    });
+    return unsubscribe;
+  }, [scrollProgress]);
+
+  // Overall scroll progress (0-1) for the progress bar
+  const [overallProgress, setOverallProgress] = useState(0);
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', setOverallProgress);
+    return unsubscribe;
+  }, [scrollYProgress]);
+
+  const step = hiwSteps[activeStep];
+  const Geometry = stepGeometries[activeStep];
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative"
+      style={{ height: '500vh' }}
+      role="region"
+      aria-label="How it works"
+    >
+      <div className="sticky top-0 w-full overflow-hidden" style={{ height: '100dvh' }}>
+        {/* Ghost number - fancard cutout: fancards visible only through the number text */}
+        <div className="absolute inset-0 z-[2] pointer-events-none select-none overflow-hidden" style={{ isolation: 'isolate' }}>
+          {/* Fancard grid layer — shifted per step so each number shows different cards */}
+          <div className="absolute inset-0">
+            <div
+              className="grid gap-3 sm:gap-4 p-2"
+              style={{
+                gridTemplateColumns: 'repeat(6, 1fr)',
+                width: '110%',
+                marginLeft: '-5%',
+              }}
+            >
+              {(() => {
+                // Rotate the card array by a different offset for each step
+                const offset = activeStep * 7;
+                const shifted = [...allCardImages.slice(offset % allCardImages.length), ...allCardImages.slice(0, offset % allCardImages.length)];
+                return shifted.map((src, i) => (
+                  <div
+                    key={`${activeStep}-${i}`}
+                    className="rounded-xl sm:rounded-2xl overflow-hidden"
+                    style={{ rotate: `${cardRotations[i]}deg` }}
+                  >
+                    <img
+                      src={src}
+                      alt=""
+                      className="w-full h-auto block rounded-xl sm:rounded-2xl"
+                      loading="lazy"
+                    />
+                  </div>
+                ));
+              })()}
+            </div>
+          </div>
+          {/* 90% white overlay so fancards are only ~10% visible */}
+          <div className="absolute inset-0" style={{ backgroundColor: 'rgba(255,255,255,0.9)' }} />
+          {/* White mask with text knockout — black text on white, blended with screen so black becomes transparent */}
+          <div className="absolute inset-0 flex items-center justify-center" style={{ mixBlendMode: 'screen' }}>
+            <div className="absolute inset-0 bg-white" />
+            <motion.span
+              key={activeStep}
+              className="relative font-bold leading-none"
+              style={{
+                fontSize: 'min(50vw, 50vh)',
+                color: 'black',
+              }}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+            >
+              {step.number}
+            </motion.span>
+          </div>
+        </div>
+
+        {/* Main content grid */}
+        <div className="relative z-10 h-full flex flex-col px-8 sm:px-12 md:px-20 lg:px-28">
+          {/* Section header - top left */}
+          <div className="mb-auto" style={{ paddingTop: 'calc(2.5rem + 80px)' }}>
+            <h1 className="text-gray-900 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight">
+              How It Works
+            </h1>
+          </div>
+
+          <div className="flex items-center gap-8 lg:gap-16 max-w-7xl mx-auto w-full mb-auto">
+            {/* Left: Text content */}
+            <div className="flex-1 min-w-0">
+              {/* Eyebrow */}
+              <motion.div
+                key={`eyebrow-${activeStep}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.14 }}
+                className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] mb-6"
+                style={{ color: '#6FE866' }}
+              >
+                {step.eyebrow}
+              </motion.div>
+
+              {/* Title with character animation */}
+              <motion.div
+                key={`title-${activeStep}`}
+                className="mb-6"
+              >
+                <AnimatedTitle text={step.title} />
+              </motion.div>
+
+              {/* Description */}
+              <motion.p
+                key={`desc-${activeStep}`}
+                className="text-gray-500 text-base sm:text-lg md:text-xl leading-relaxed max-w-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {step.description}
+              </motion.p>
+            </div>
+
+            {/* Right: SVG Geometry */}
+            <div className="hidden md:flex flex-1 items-center justify-center">
+              <motion.div
+                key={`geo-${activeStep}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="w-full max-w-[400px]"
+              >
+                <Geometry accent={step.accent} />
+              </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar: progress + dots + arrows */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 px-8 sm:px-12 md:px-20 lg:px-28 pb-8">
+          {/* Progress bar */}
+          <div className="h-[2px] bg-gray-200 rounded-full mb-6 max-w-7xl mx-auto overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-150"
+              style={{ backgroundColor: '#6FE866', width: `${overallProgress * 100}%` }}
+            />
+          </div>
+
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
+            {/* Navigation dots */}
+            <div className="flex gap-3">
+              {hiwSteps.map((s, i) => (
+                <div
+                  key={i}
+                  className="relative w-3 h-3 rounded-full transition-all duration-300"
+                  style={{
+                    backgroundColor: i === activeStep ? '#6FE866' : 'rgba(0,0,0,0.12)',
+                    transform: i === activeStep ? 'scale(1.5)' : 'scale(1)',
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Step counter */}
+            <div className="text-gray-400 text-sm font-medium">
+              <span style={{ color: '#6FE866' }}>{String(activeStep + 1).padStart(2, '0')}</span>
+              <span className="mx-2">/</span>
+              <span>{String(hiwSteps.length).padStart(2, '0')}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function Home() {
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
+  const [menuOpen, setMenuOpen] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const mouseXRaw = useMotionValue(0);
+  const mouseYRaw = useMotionValue(0);
+  const mouseX = useSpring(mouseXRaw, { stiffness: 50, damping: 20 });
+  const mouseY = useSpring(mouseYRaw, { stiffness: 50, damping: 20 });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroRef.current) return;
+      const rect = heroRef.current.getBoundingClientRect();
+      mouseXRaw.set((e.clientX - rect.left) / rect.width - 0.5);
+      mouseYRaw.set((e.clientY - rect.top) / rect.height - 0.5);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseXRaw, mouseYRaw]);
+
+  // Enable scroll-snap on html so the last viewport snaps into place
+  useEffect(() => {
+    document.documentElement.style.scrollSnapType = 'y proximity';
+    return () => {
+      document.documentElement.style.scrollSnapType = '';
+    };
+  }, []);
 
   return (
     <div className="bg-white">
-      {/* Hero Section - Bold & Powerful */}
-      <section ref={containerRef} className="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-32 sm:py-36 md:py-40 overflow-hidden bg-gray-50">
-        {/* Clean background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50" />
-        
-        <motion.div 
-          className="relative z-10 max-w-[1600px] mx-auto w-full px-4"
-          style={{ opacity, scale }}
-        >
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
-            {/* Left Content - Bold, expressive copy */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-2xl lg:max-w-none"
-            >
-              {/* Eyebrow - energy marker */}
+      {/* Hero Section - Full screen with card grid mosaic */}
+      <section
+        ref={heroRef}
+        className="relative w-full overflow-hidden"
+        style={{ height: '100dvh', backgroundColor: '#2A2A2A' }}
+      >
+        {/* Card grid mosaic background */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center">
+          <motion.div
+            className="grid gap-3 sm:gap-4 p-2"
+            style={{
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              width: '110%',
+              x: useTransform(mouseX, [-0.5, 0.5], [10, -10]),
+              y: useTransform(mouseY, [-0.5, 0.5], [10, -10]),
+            }}
+          >
+            {allCardImages.map((src, i) => (
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-2 mb-6 sm:mb-8"
+                key={i}
+                className="rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer"
+                style={{
+                  rotate: cardRotations[i],
+                  x: useTransform(mouseX, [-0.5, 0.5], [-20 * cardDepths[i], 20 * cardDepths[i]]),
+                  y: useTransform(mouseY, [-0.5, 0.5], [-15 * cardDepths[i], 15 * cardDepths[i]]),
+                }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.1, rotate: cardRotations[i] + ((i * 7 + 3) % 11 - 5) * 2, zIndex: 10, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+                transition={{ duration: 0.6, delay: i * 0.03, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="h-[2px] w-8 bg-gradient-to-r from-[#BEF264] to-transparent" />
-                <span className="text-[#BEF264] text-xs sm:text-sm font-bold uppercase tracking-wider">THE FAN ENGAGEMENT PLATFORM</span>
+                <img
+                  src={src}
+                  alt="Fancard"
+                  className="w-full h-auto block rounded-xl sm:rounded-2xl"
+                  loading="lazy"
+                />
               </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
-              {/* Hero Headline - BOLD & IMPACTFUL */}
-              <h1 className="text-gray-900 mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] font-bold">
-                Turn Fan Moments Into <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Brand Loyalty.</span>
-              </h1>
-              
-              {/* Subheadline - Clear value prop */}
-              <p className="text-gray-600 text-lg sm:text-xl mb-10 sm:mb-12 max-w-2xl leading-relaxed">
-                Capture unforgettable fan moments at your event and transform them into lasting digital memories that deepen the connection to your brand.
-              </p>
+        {/* Gradient overlay over images - black at top fading to transparent at bottom */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)' }}
+        />
 
-              {/* Value Props - Numbered List */}
-              <div className="space-y-3 mb-10 sm:mb-12">
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-                    <Database className="w-4 h-4 text-white" strokeWidth={1.5} />
-                  </div>
-                  <p className="text-gray-700 text-sm sm:text-base">
-                    Build your first-party fan database
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-                    <TrendingUp className="w-4 h-4 text-white" strokeWidth={1.5} />
-                  </div>
-                  <p className="text-gray-700 text-sm sm:text-base">
-                    Grow engagement during your event
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-                    <Users className="w-4 h-4 text-white" strokeWidth={1.5} />
-                  </div>
-                  <p className="text-gray-700 text-sm sm:text-base">
-                    Strengthen fan relations and loyalty
-                  </p>
-                </div>
-              </div>
-
-              {/* CTAs - Powerful & Decisive */}
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-                <Button 
-                  size="lg" 
-                  className="bg-[#BEF264] hover:bg-[#9EF01A] text-black border-0 px-8 py-6 text-base font-semibold group transition-all duration-300"
-                  onClick={() => setDemoDialogOpen(true)}
-                >
-                  Book a Demo
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-300 hover:border-gray-400 px-8 py-6 text-base font-semibold transition-all duration-300"
-                >
-                  <Play className="mr-2 w-5 h-5" strokeWidth={1.5} fill="currentColor" />
-                  Watch Demo
-                </Button>
-              </div>
-            </motion.div>
-
-            {/* Right Content - Visual Impact */}
+        {/* Copy text overlay */}
+        <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 text-center pointer-events-none">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-4xl"
+          >
             <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="relative lg:ml-auto"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="inline-flex items-center gap-2 mb-6"
             >
-              <HeroFanCardDisplay />
+              <div className="h-[2px] w-8 bg-gradient-to-r from-[#6FE866] to-transparent" />
+              <span className="text-[#6FE866] text-xs sm:text-sm font-bold uppercase tracking-wider">THE FAN ENGAGEMENT PLATFORM</span>
+              <div className="h-[2px] w-8 bg-gradient-to-l from-[#6FE866] to-transparent" />
             </motion.div>
-          </div>
-        </motion.div>
 
-        {/* Scroll indicator - subtle momentum cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2"
-        >
-          <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"
-          />
-        </motion.div>
-      </section>
+            <h1 className="text-white mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] font-bold">
+              Turn Fan Moments Into{' '}
+              <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">
+                Brand Loyalty.
+              </span>
+            </h1>
 
-      {/* Partner Logos Slider */}
-      <PartnerSlider />
-
-      {/* How It Works */}
-      <section className="relative pt-8 sm:pt-12 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-6 overflow-hidden bg-gray-50">
-        
-        <div className="relative max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16 md:mb-20"
-          >
-            <div className="text-[#BEF264] text-sm uppercase tracking-wider mb-4 font-semibold">HOW IT WORKS</div>
-            <h2 className="text-gray-900 mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-              Branded Campaigns <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Your Fans Love</span>
-            </h2>
-            <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto px-4">
-              Launch engaging campaigns in minutes and start capturing the fan data that proves your value.
+            <p className="text-gray-300 text-lg sm:text-xl md:text-2xl mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
+              Capture unforgettable fan moments at your event and transform them into lasting digital memories.
             </p>
-          </motion.div>
 
-          <div className="max-w-5xl mx-auto mb-12 sm:mb-16 md:mb-20">
-            <div className="grid grid-cols-1 gap-4 sm:gap-5">
-
-              {/* Row 1: Two tall feature cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-
-                {/* Step 1 */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0 }}
-                  className="relative p-8 rounded-2xl bg-gray-100 hover:bg-gray-200/60 transition-all duration-300 flex flex-col min-h-[260px]"
-                >
-                  <div className="absolute top-6 right-7 text-gray-300 font-semibold tracking-wide text-[32px] font-bold">01</div>
-                  <div className="w-10 h-10 rounded-xl bg-gray-900/10 flex items-center justify-center mb-auto">
-                    <Palette className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
-                  </div>
-                  <div className="mt-12">
-                    <h3 className="text-gray-900 mb-2 text-lg font-semibold">Create Your Campaign</h3>
-                    <p className="text-gray-500 leading-relaxed text-sm">
-                      Design branded templates with your logos, sponsors, and custom themes using our intuitive dashboard.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Step 2 */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="relative p-8 rounded-2xl bg-gray-100 hover:bg-gray-200/60 transition-all duration-300 flex flex-col min-h-[260px]"
-                >
-                  <div className="absolute top-6 right-7 text-gray-300 font-semibold tracking-wide text-[32px] font-bold">02</div>
-                  <div className="w-10 h-10 rounded-xl bg-gray-900/10 flex items-center justify-center mb-auto">
-                    <QrCode className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
-                  </div>
-                  <div className="mt-12">
-                    <h3 className="text-gray-900 mb-2 text-lg font-semibold">Deploy at Events</h3>
-                    <p className="text-gray-500 leading-relaxed text-sm">
-                      Share QR codes at your venue—on screens, tickets, or signage. Fans scan to instantly join.
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Row 2: Three smaller equal cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-
-                {/* Step 3 */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative p-7 rounded-2xl bg-gray-100 hover:bg-gray-200/60 transition-all duration-300 flex flex-col min-h-[200px]"
-                >
-                  <div className="absolute top-6 right-7 text-gray-300 font-semibold tracking-wide text-[32px] font-bold">03</div>
-                  <div className="w-10 h-10 rounded-xl bg-gray-900/10 flex items-center justify-center mb-auto">
-                    <BarChart3 className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
-                  </div>
-                  <div className="mt-10">
-                    <h3 className="text-gray-900 mb-2 text-base font-semibold">Capture Unique Data</h3>
-                    <p className="text-gray-500 leading-relaxed text-sm">
-                      Access engagement metrics, sentiment insights, and fan data that's impossible to get anywhere else.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Step 4 */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="relative p-7 rounded-2xl bg-gray-100 hover:bg-gray-200/60 transition-all duration-300 flex flex-col min-h-[200px]"
-                >
-                  <div className="absolute top-6 right-7 text-gray-300 font-semibold tracking-wide text-[32px] font-bold">04</div>
-                  <div className="w-10 h-10 rounded-xl bg-gray-900/10 flex items-center justify-center mb-auto">
-                    <Database className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
-                  </div>
-                  <div className="mt-10">
-                    <h3 className="text-gray-900 mb-2 text-base font-semibold">Build your Fan Database</h3>
-                    <p className="text-gray-500 leading-relaxed text-sm">
-                      Collect verified fan contact information and build a direct relationship with your most engaged supporters.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Step 5 */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  className="relative p-7 rounded-2xl bg-gray-100 hover:bg-gray-200/60 transition-all duration-300 flex flex-col min-h-[200px]"
-                >
-                  <div className="absolute top-6 right-7 text-gray-300 font-semibold tracking-wide text-[32px] font-bold">05</div>
-                  <div className="w-10 h-10 rounded-xl bg-gray-900/10 flex items-center justify-center mb-auto">
-                    <Trophy className="w-5 h-5 text-gray-700" strokeWidth={1.5} />
-                  </div>
-                  <div className="mt-10">
-                    <h3 className="text-gray-900 mb-2 text-base font-semibold">Automated Insights</h3>
-                    <p className="text-gray-500 leading-relaxed text-sm">
-                      Get instant insights into how your campaign performed with detailed analytics and engagement reports.
-                    </p>
-                  </div>
-                </motion.div>
-
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center pointer-events-auto">
+              <Button
+                size="lg"
+                className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 px-8 py-6 text-base font-semibold group transition-all duration-300"
+                onClick={() => setDemoDialogOpen(true)}
+              >
+                Book a Demo
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 px-8 py-6 text-base font-semibold transition-all duration-300 backdrop-blur-sm"
+              >
+                <Play className="mr-2 w-5 h-5" strokeWidth={1.5} fill="currentColor" />
+                Watch Demo
+              </Button>
             </div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Button 
-              size="lg" 
-              className="bg-black hover:bg-gray-800 text-white border-0 px-8 py-6 text-lg group rounded-full shadow-lg transition-all"
-              onClick={() => setDemoDialogOpen(true)}
-            >
-              Book a Demo
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" strokeWidth={1.5} />
-            </Button>
           </motion.div>
 
-          {/* Image Carousel */}
+          {/* Scroll indicator */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-12 sm:mt-16 md:mt-20 max-w-7xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2"
           >
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={cascaisFancard1}
-                        alt="CS Cascais - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={cascaisFancard2}
-                        alt="CS Cascais - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={cascaisFancard3}
-                        alt="CS Cascais - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={sportworxFancard1}
-                        alt="Sportworx - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={sportworxFancard2}
-                        alt="Sportworx - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={sportworxFancard3}
-                        alt="Sportworx - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={lafFancard1}
-                        alt="Life After Football - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={lafFancard2}
-                        alt="Life After Football - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={lafFancard3}
-                        alt="Life After Football - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={ballerMarketPromo1}
-                        alt="Baller Market - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-2">
-                    <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-white aspect-[4/5]">
-                      <ImageWithFallback
-                        src={ballerMarketPromo2}
-                        alt="Baller Market - FanCard"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious className="left-4 bg-white border-gray-300 text-gray-900 hover:bg-gray-50 hover:text-gray-900" />
-              <CarouselNext className="right-4 bg-white border-gray-300 text-gray-900 hover:bg-gray-50 hover:text-gray-900" />
-            </Carousel>
+            <span className="text-gray-400 text-xs font-medium uppercase tracking-wider">Scroll</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"
+            />
           </motion.div>
         </div>
       </section>
 
+      {/* How It Works — Full-viewport animated section */}
+      <HowItWorksSection />
+
       {/* How It Works — Alternative Layout (Tab + Preview) */}
-      {/* HIDDEN — to restore, remove the `false &&` wrapper: false && <HowItWorksAlt ... /> */}
       {false && <HowItWorksAlt onBookDemo={() => setDemoDialogOpen(true)} />}
 
-      {/* Testimonials Section */}
-      <section className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
+      {/* Combined Testimonials + CTA — Full viewport */}
+      <section className="relative w-full overflow-hidden flex flex-col justify-center px-4 sm:px-6 lg:px-8 snap-start" style={{ minHeight: '100dvh' }}>
+        {/* Fancard background with white overlay */}
+        <div className="absolute inset-0 z-0">
+          <div
+            className="grid gap-3 sm:gap-4 p-2"
+            style={{
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              width: '110%',
+              marginLeft: '-5%',
+            }}
+          >
+            {allCardImages.map((src, i) => (
+              <div
+                key={i}
+                className="rounded-xl sm:rounded-2xl overflow-hidden"
+                style={{ rotate: `${cardRotations[i]}deg` }}
+              >
+                <img
+                  src={src}
+                  alt=""
+                  className="w-full h-auto block rounded-xl sm:rounded-2xl"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="absolute inset-0 z-[1]" style={{ backgroundColor: 'rgba(255,255,255,0.9)' }} />
+
+        <div className="relative z-[2] max-w-7xl mx-auto w-full py-16 sm:py-20">
+          {/* Trusted by Leaders */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-10 sm:mb-14"
           >
             <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl font-bold">
               Trusted by Leaders
@@ -487,9 +634,7 @@ export function Home() {
             </p>
           </motion.div>
 
-          {/* Testimonials Grid */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* Lucas Bugter - Sportworx */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16 sm:mb-20">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -501,11 +646,7 @@ export function Home() {
                 Fancard transforms passive viewing into an interactive game that travels with you long after the final whistle.
               </p>
               <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
-                <img 
-                  src={lucasImage} 
-                  alt="Lucas Bugter" 
-                  className="w-16 h-16 rounded-full object-cover"
-                />
+                <img src={lucasImage} alt="Lucas Bugter" className="w-16 h-16 rounded-full object-cover" />
                 <div>
                   <div className="font-bold text-gray-900 text-lg">Lucas Bugter</div>
                   <div className="text-gray-600">CMO, Sportworx</div>
@@ -513,7 +654,6 @@ export function Home() {
               </div>
             </motion.div>
 
-            {/* Gonçalo de Moura - CS Cascais */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -525,11 +665,7 @@ export function Home() {
                 Fancard is a great platform for connecting the club's activities with its fans - both local and international.
               </p>
               <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
-                <img 
-                  src={goncaloImage} 
-                  alt="Gonçalo de Moura" 
-                  className="w-16 h-16 rounded-full object-cover"
-                />
+                <img src={goncaloImage} alt="Gonçalo de Moura" className="w-16 h-16 rounded-full object-cover" />
                 <div>
                   <div className="font-bold text-gray-900 text-lg">Gonçalo de Moura</div>
                   <div className="text-gray-600">CEO, CS Cascais</div>
@@ -537,42 +673,37 @@ export function Home() {
               </div>
             </motion.div>
           </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-5xl mx-auto text-center"
+          >
+            <h2 className="text-gray-900 mb-8 sm:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight px-4">
+              Start Turning Moments Into
+              <br />
+              <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Measurable Value.</span>
+            </h2>
+
+            <p className="text-gray-600 text-xl sm:text-2xl mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+              Join leading sports organizations creating unforgettable experiences that drive loyalty and revenue.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center">
+              <Button
+                size="lg"
+                className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 px-10 py-7 text-lg sm:text-xl font-semibold group transition-all duration-300"
+                onClick={() => setDemoDialogOpen(true)}
+              >
+                Book a Demo
+                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" strokeWidth={1.5} />
+              </Button>
+            </div>
+          </motion.div>
         </div>
-      </section>
-
-      {/* Final CTA - Premium Black Section */}
-      <section className="relative py-20 sm:py-28 md:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gray-50">
-        {/* Clean background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50" />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 max-w-5xl mx-auto text-center"
-        >
-          <h2 className="text-gray-900 mb-8 sm:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight px-4">
-            Start Turning Moments Into
-            <br />
-            <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Measurable Value.</span>
-          </h2>
-      
-          <p className="text-gray-600 text-xl sm:text-2xl mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
-            Join leading sports organizations creating unforgettable experiences that drive loyalty and revenue.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-[#BEF264] hover:bg-[#9EF01A] text-black border-0 px-10 py-7 text-lg sm:text-xl font-semibold group transition-all duration-300"
-              onClick={() => setDemoDialogOpen(true)}
-            >
-              Book a Demo
-              <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" strokeWidth={1.5} />
-            </Button>
-          </div>
-        </motion.div>
       </section>
 
       <BookDemoDialog open={demoDialogOpen} onOpenChange={setDemoDialogOpen} />
