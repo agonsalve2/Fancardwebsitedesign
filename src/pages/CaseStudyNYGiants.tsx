@@ -40,7 +40,7 @@ export function CaseStudyNYGiants() {
             transition={{ duration: 0.8 }}
             className="text-center mb-8"
           >
-            <div className="inline-block bg-[#BEF264]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <div className="inline-block bg-[#6FE866]/10 text-gray-900 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               NFL Team • United States
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -66,7 +66,7 @@ export function CaseStudyNYGiants() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-6 border border-gray-200 text-center"
               >
-                <stat.icon className="w-8 h-8 text-[#BEF264] mx-auto mb-3" />
+                <stat.icon className="w-8 h-8 text-[#6FE866] mx-auto mb-3" />
                 <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{stat.value}</div>
                 <div className="text-gray-600 text-sm">{stat.label}</div>
               </motion.div>
@@ -90,19 +90,19 @@ export function CaseStudyNYGiants() {
             </p>
             <ul className="space-y-3 text-lg text-gray-600">
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Engaging a multi-generational fanbase spanning from longtime season ticket holders to Gen Z fans</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Competing for attention in the saturated New York sports and entertainment market</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Maximizing the 82,500-seat MetLife Stadium experience beyond the traditional game</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="w-2 h-2 bg-[#BEF264] rounded-full mt-2 flex-shrink-0" />
+                <span className="w-2 h-2 bg-[#6FE866] rounded-full mt-2 flex-shrink-0" />
                 <span>Providing measurable ROI to corporate sponsors in an increasingly digital landscape</span>
               </li>
             </ul>
@@ -161,7 +161,7 @@ export function CaseStudyNYGiants() {
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
               After implementing FanCard for the entire NFL season, the NY Giants achieved record-breaking engagement and business metrics:
             </p>
-            <div className="bg-gradient-to-br from-[#BEF264]/10 to-[#86EFAC]/10 rounded-2xl p-8 border border-gray-200">
+            <div className="bg-gradient-to-br from-[#6FE866]/10 to-[#8FF888]/10 rounded-2xl p-8 border border-gray-200">
               <ul className="space-y-4 text-lg text-gray-700">
                 <li className="flex items-start gap-3">
                   <span className="text-2xl">🏈</span>
@@ -220,12 +220,12 @@ export function CaseStudyNYGiants() {
             viewport={{ once: true }}
             className="bg-white rounded-2xl p-8 sm:p-12 border border-gray-200"
           >
-            <div className="text-4xl sm:text-5xl text-[#BEF264] mb-6">"</div>
+            <div className="text-4xl sm:text-5xl text-[#6FE866] mb-6">"</div>
             <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed mb-8">
               FanCard transformed how we engage with our fanbase. We're not just providing entertainment on game day—we're creating lasting memories that fans cherish and share. The business impact has been remarkable, but what really matters is seeing the joy on fans' faces when they collect a card from a game-winning touchdown.
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#BEF264] to-[#86EFAC] rounded-full flex items-center justify-center text-2xl font-bold text-gray-900">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#6FE866] to-[#8FF888] rounded-full flex items-center justify-center text-2xl font-bold text-gray-900">
                 G
               </div>
               <div>
@@ -246,7 +246,7 @@ export function CaseStudyNYGiants() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Ready to Elevate Your <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Stadium Experience?</span>
+              Ready to Elevate Your <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Stadium Experience?</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Join the NY Giants and leading sports franchises in creating unforgettable digital fan experiences.

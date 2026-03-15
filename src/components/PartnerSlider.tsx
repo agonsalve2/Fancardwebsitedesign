@@ -31,11 +31,8 @@ export function PartnerSlider() {
   );
 
   return (
-    <div className="w-full bg-gray-800 py-12 border-y border-gray-700">
+    <div className="w-full py-12 border-y border-gray-200">
       <div className="max-w-7xl mx-auto px-6">
-        <p className="text-center text-gray-400 text-sm mb-8">
-          Powering engagement for
-        </p>
         <Carousel
           plugins={[plugin.current]}
           opts={{
@@ -51,7 +48,7 @@ export function PartnerSlider() {
                   <img
                     src={partner.logo}
                     alt={partner.name}
-                    className="w-auto h-auto max-w-[140px] max-h-16 object-contain opacity-75 hover:opacity-100 transition-opacity"
+                    className="w-auto h-auto max-w-[140px] max-h-16 object-contain opacity-50 hover:opacity-80 transition-opacity"
                   />
                 </div>
               </CarouselItem>

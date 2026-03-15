@@ -60,7 +60,7 @@ export function Navigation() {
                 {isActivePath(link.path) && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#BEF264] to-[#86EFAC] rounded-full shadow-lg shadow-[#BEF264]/50"
+                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-[#6FE866] to-[#8FF888] rounded-full shadow-lg shadow-[#6FE866]/50"
                   />
                 )}
                 {!isActivePath(link.path) && (
@@ -70,7 +70,7 @@ export function Navigation() {
             ))}
             <Button 
               size="sm" 
-              className="bg-[#BEF264] hover:bg-[#9EF01A] text-black border-0 px-6 py-2.5 font-bold text-sm shadow-lg shadow-[#BEF264]/30 hover:shadow-[#BEF264]/50 transition-all duration-300 hover:scale-105"
+              className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 px-6 py-2.5 font-bold text-sm shadow-lg shadow-[#6FE866]/30 hover:shadow-[#6FE866]/50 transition-all duration-300 hover:scale-105"
               onClick={() => setDemoDialogOpen(true)}
             >
               Book a Demo
@@ -112,7 +112,7 @@ export function Navigation() {
               ))}
               <Button 
                 size="sm" 
-                className="bg-[#BEF264] hover:bg-[#9EF01A] text-black border-0 py-3 font-bold shadow-lg shadow-[#BEF264]/30 w-full mt-2"
+                className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 py-3 font-bold shadow-lg shadow-[#6FE866]/30 w-full mt-2"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   setDemoDialogOpen(true);

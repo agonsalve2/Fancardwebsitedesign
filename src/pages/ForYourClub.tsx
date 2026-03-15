@@ -113,14 +113,14 @@ export function ForYourClub() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center gap-2 mb-6 sm:mb-8"
           >
-            <div className="h-[2px] w-8 bg-gradient-to-r from-[#BEF264] to-transparent" />
-            <span className="text-[#BEF264] text-xs sm:text-sm font-bold uppercase tracking-wider">Use Cases</span>
+            <div className="h-[2px] w-8 bg-gradient-to-r from-[#6FE866] to-transparent" />
+            <span className="text-[#6FE866] text-xs sm:text-sm font-bold uppercase tracking-wider">Use Cases</span>
           </motion.div>
           
           <h1 className="text-gray-900 mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight font-bold">
             Your Event.
             <br />
-            <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Your Fans.</span>
+            <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Your Fans.</span>
             <br />
             Real Results.
           </h1>
@@ -132,7 +132,7 @@ export function ForYourClub() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center">
             <Button 
               size="lg" 
-              className="bg-[#BEF264] hover:bg-[#9EF01A] text-black border-0 px-8 py-6 text-base font-semibold group transition-all duration-300"
+              className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 px-8 py-6 text-base font-semibold group transition-all duration-300"
               onClick={() => setDemoDialogOpen(true)}
             >
               Book a Demo
@@ -199,7 +199,7 @@ export function ForYourClub() {
                       </div>
                     </div>
                     <div className="p-6">
-                      <h3 className="text-gray-900 text-2xl font-bold mb-3 group-hover:text-[#BEF264] transition-colors">
+                      <h3 className="text-gray-900 text-2xl font-bold mb-3 group-hover:text-[#6FE866] transition-colors">
                         {caseStudy.name}
                       </h3>
                       <p className="text-gray-600 leading-relaxed mb-4">
@@ -330,7 +330,7 @@ export function ForYourClub() {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#BEF264]/20 to-[#86EFAC]/20 rounded-3xl blur-2xl" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#6FE866]/20 to-[#8FF888]/20 rounded-3xl blur-2xl" />
               <ImageWithFallback
                 src={newStadiumImage}
                 alt="Stadium crowd"
@@ -358,11 +358,11 @@ export function ForYourClub() {
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="p-6 rounded-xl bg-gray-50 border border-gray-200">
-                  <Shield className="w-8 h-8 text-[#BEF264] mb-3" />
+                  <Shield className="w-8 h-8 text-[#6FE866] mb-3" />
                   <div className="text-gray-900 text-sm font-semibold">Enterprise Security</div>
                 </div>
                 <div className="p-6 rounded-xl bg-gray-50 border border-gray-200">
-                  <Zap className="w-8 h-8 text-[#BEF264] mb-3" />
+                  <Zap className="w-8 h-8 text-[#6FE866] mb-3" />
                   <div className="text-gray-900 text-sm font-semibold">Real-Time Processing</div>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export function ForYourClub() {
           className="relative z-10 max-w-4xl mx-auto text-center"
         >
           <h2 className="text-gray-900 mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold px-4">
-            Ready to Transform Your <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Fan Experience?</span>
+            Ready to Transform Your <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Fan Experience?</span>
           </h2>
           <p className="text-gray-600 text-lg sm:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
             Join leading organizations in creating unforgettable fan experiences 

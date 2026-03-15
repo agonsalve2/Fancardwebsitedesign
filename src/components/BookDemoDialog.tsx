@@ -119,7 +119,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
                 id="firstName"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#BEF264] focus:ring-[#BEF264]/20"
+                className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#6FE866] focus:ring-[#6FE866]/20"
                 placeholder="John"
                 required
               />
@@ -131,7 +131,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
                 id="lastName"
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#BEF264] focus:ring-[#BEF264]/20"
+                className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#6FE866] focus:ring-[#6FE866]/20"
                 placeholder="Smith"
                 required
               />
@@ -145,7 +145,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#BEF264] focus:ring-[#BEF264]/20"
+              className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#6FE866] focus:ring-[#6FE866]/20"
               placeholder="john@stadium.com"
               required
             />
@@ -158,7 +158,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#BEF264] focus:ring-[#BEF264]/20"
+              className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#6FE866] focus:ring-[#6FE866]/20"
               placeholder="+1 (555) 123-4567"
               required
             />
@@ -170,7 +170,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
               id="venueName"
               value={formData.venueName}
               onChange={(e) => setFormData({ ...formData, venueName: e.target.value })}
-              className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#BEF264] focus:ring-[#BEF264]/20"
+              className="bg-gray-50 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#6FE866] focus:ring-[#6FE866]/20"
               placeholder="Your Stadium or Arena"
               required
             />
@@ -183,7 +183,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
               onValueChange={(value) => setFormData({ ...formData, interest: value })}
               required
             >
-              <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900 focus:border-[#BEF264] focus:ring-[#BEF264]/20">
+              <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900 focus:border-[#6FE866] focus:ring-[#6FE866]/20">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-200">
@@ -201,7 +201,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
               type="submit"
               size="lg" 
               disabled={isSubmitting}
-              className="w-full bg-[#BEF264] hover:bg-[#9EF01A] text-black border-0 py-7 text-lg font-bold group shadow-2xl shadow-[#BEF264]/30 hover:shadow-[#BEF264]/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 py-7 text-lg font-bold group shadow-2xl shadow-[#6FE866]/30 hover:shadow-[#6FE866]/50 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {isSubmitting ? 'Submitting...' : 'Request Demo'}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />

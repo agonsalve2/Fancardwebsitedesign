@@ -129,12 +129,12 @@ export function Features() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="inline-flex items-center gap-2 mb-6 sm:mb-8"
             >
-              <div className="h-[2px] w-8 bg-gradient-to-r from-[#BEF264] to-transparent" />
-              <span className="text-[#BEF264] text-xs sm:text-sm font-bold uppercase tracking-wider">Platform Features</span>
+              <div className="h-[2px] w-8 bg-gradient-to-r from-[#6FE866] to-transparent" />
+              <span className="text-[#6FE866] text-xs sm:text-sm font-bold uppercase tracking-wider">Platform Features</span>
             </motion.div>
             
             <h1 className="text-gray-900 mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight font-bold">
-              Tools That <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Prove Value.</span>
+              Tools That <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Prove Value.</span>
             </h1>
             
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
@@ -268,7 +268,7 @@ export function Features() {
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="flex items-center gap-3 p-4 rounded-xl bg-white border border-gray-200 hover:shadow-lg transition-all"
               >
-                <div className="w-2 h-2 rounded-full bg-[#BEF264] flex-shrink-0" />
+                <div className="w-2 h-2 rounded-full bg-[#6FE866] flex-shrink-0" />
                 <span className="text-gray-900 font-medium">{feature}</span>
               </motion.div>
             ))}
@@ -423,7 +423,7 @@ export function Features() {
           className="relative z-10 max-w-4xl mx-auto text-center"
         >
           <h2 className="text-gray-900 mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold px-4">
-            Ready to See What <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">FanCard Can Do?</span>
+            Ready to See What <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">FanCard Can Do?</span>
           </h2>
           <p className="text-gray-600 text-lg sm:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
             Join leading organizations in creating data-driven fan experiences that prove real value to sponsors.

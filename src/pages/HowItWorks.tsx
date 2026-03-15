@@ -27,14 +27,14 @@ export function HowItWorks() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center gap-2 mb-6 sm:mb-8"
           >
-            <div className="h-[2px] w-8 bg-gradient-to-r from-[#BEF264] to-transparent" />
-            <span className="text-[#BEF264] text-xs sm:text-sm font-bold uppercase tracking-wider">The Complete Journey</span>
+            <div className="h-[2px] w-8 bg-gradient-to-r from-[#6FE866] to-transparent" />
+            <span className="text-[#6FE866] text-xs sm:text-sm font-bold uppercase tracking-wider">The Complete Journey</span>
           </motion.div>
           
           <h1 className="text-gray-900 mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight font-bold">
             Every Moment.
             <br />
-            <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Every Fan.</span>
+            <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Every Fan.</span>
             <br />
             Captured.
           </h1>
@@ -69,11 +69,11 @@ export function HowItWorks() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <div className="inline-block px-4 py-2 bg-[#BEF264]/10 rounded-full mb-4">
-              <span className="text-[#BEF264] text-sm font-semibold uppercase tracking-wider">Phase 1</span>
+            <div className="inline-block px-4 py-2 bg-[#6FE866]/10 rounded-full mb-4">
+              <span className="text-[#6FE866] text-sm font-semibold uppercase tracking-wider">Phase 1</span>
             </div>
             <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl font-bold">
-              Before the Event: <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Setup & Strategy</span>
+              Before the Event: <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Setup & Strategy</span>
             </h2>
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
               Get your campaign ready in minutes, not days
@@ -144,11 +144,11 @@ export function HowItWorks() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <div className="inline-block px-4 py-2 bg-[#BEF264]/10 rounded-full mb-4">
-              <span className="text-[#BEF264] text-sm font-semibold uppercase tracking-wider">Phase 2</span>
+            <div className="inline-block px-4 py-2 bg-[#6FE866]/10 rounded-full mb-4">
+              <span className="text-[#6FE866] text-sm font-semibold uppercase tracking-wider">Phase 2</span>
             </div>
             <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl font-bold">
-              During the Event: <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Live Engagement</span>
+              During the Event: <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Live Engagement</span>
             </h2>
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
               Watch as fans transform moments into memories in real-time
@@ -166,7 +166,7 @@ export function HowItWorks() {
               className="relative"
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#BEF264] to-[#86EFAC] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#6FE866] to-[#8FF888] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
                   1
                 </div>
                 <div>
@@ -176,15 +176,15 @@ export function HowItWorks() {
                   </p>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Jumbotron displays during timeouts and breaks</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Concourse signage near high-traffic areas</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">In-app notifications and email campaigns</span>
                     </div>
                   </div>
@@ -201,7 +201,7 @@ export function HowItWorks() {
               className="relative"
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#BEF264] to-[#86EFAC] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#6FE866] to-[#8FF888] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
                   2
                 </div>
                 <div>
@@ -211,15 +211,15 @@ export function HowItWorks() {
                   </p>
                   <div className="grid sm:grid-cols-3 gap-4">
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">No app download or login required</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Works on any smartphone camera</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Lightning-fast load times</span>
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export function HowItWorks() {
               className="relative"
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#BEF264] to-[#86EFAC] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#6FE866] to-[#8FF888] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
                   3
                 </div>
                 <div>
@@ -246,15 +246,15 @@ export function HowItWorks() {
                   </p>
                   <div className="grid sm:grid-cols-3 gap-4">
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Upload photo or take live selfie</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Choose from player rosters or moments</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Instant card generation with branding</span>
                     </div>
                   </div>
@@ -271,7 +271,7 @@ export function HowItWorks() {
               className="relative"
             >
               <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#BEF264] to-[#86EFAC] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#6FE866] to-[#8FF888] flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
                   4
                 </div>
                 <div>
@@ -281,15 +281,15 @@ export function HowItWorks() {
                   </p>
                   <div className="grid sm:grid-cols-3 gap-4">
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">One-tap social media sharing</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Download to phone for later</span>
                     </div>
                     <div className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200">
-                      <CheckCircle2 className="w-5 h-5 text-[#BEF264] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6FE866] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600 text-sm">Organic brand amplification</span>
                     </div>
                   </div>
@@ -309,11 +309,11 @@ export function HowItWorks() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <div className="inline-block px-4 py-2 bg-[#BEF264]/10 rounded-full mb-4">
-              <span className="text-[#BEF264] text-sm font-semibold uppercase tracking-wider">Phase 3</span>
+            <div className="inline-block px-4 py-2 bg-[#6FE866]/10 rounded-full mb-4">
+              <span className="text-[#6FE866] text-sm font-semibold uppercase tracking-wider">Phase 3</span>
             </div>
             <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl font-bold">
-              After the Event: <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Insights & ROI</span>
+              After the Event: <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Insights & ROI</span>
             </h2>
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
               Turn fan engagement into actionable data and sponsor value
@@ -338,19 +338,19 @@ export function HowItWorks() {
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Live engagement counter
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Fan demographics breakdown
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Social media reach tracking
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Peak engagement moment identification
                 </li>
               </ul>
@@ -373,19 +373,19 @@ export function HowItWorks() {
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Per-sponsor impression counts
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Social media amplification metrics
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Estimated media value calculation
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Export to PDF or PowerPoint
                 </li>
               </ul>
@@ -408,19 +408,19 @@ export function HowItWorks() {
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Opt-in contact information
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Fan preference tracking
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Audience segmentation tools
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   CRM integration ready
                 </li>
               </ul>
@@ -443,19 +443,19 @@ export function HowItWorks() {
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Automated follow-up campaigns
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Personalized content delivery
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Season ticket conversion
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#BEF264]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#6FE866]" />
                   Loyalty program integration
                 </li>
               </ul>
@@ -473,7 +473,7 @@ export function HowItWorks() {
           className="relative z-10 max-w-4xl mx-auto text-center"
         >
           <h2 className="text-gray-900 mb-6 text-4xl md:text-5xl lg:text-6xl font-bold">
-            Ready to Transform Your <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Fan Experience</span>?
+            Ready to Transform Your <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Fan Experience</span>?
           </h2>
           <p className="text-gray-600 text-xl mb-12 max-w-2xl mx-auto">
             See how easy it is to launch Fancard at your venue. Book a personalized walkthrough with our team.

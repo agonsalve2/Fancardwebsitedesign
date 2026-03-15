@@ -34,7 +34,7 @@ export function PrivacyPolicy() {
                 <h2 className="text-gray-900 text-2xl mb-4">1. Applicability</h2>
                 <p className="leading-relaxed mb-4">
                   This data privacy policy applies to the Fancard application (<strong className="text-gray-900">"Application"</strong>) with all content, functions, and services and the corresponding websites{' '}
-                  <a href="https://fancard.me" className="text-[#BEF264] hover:underline" target="_blank" rel="noopener noreferrer">fancard.me</a>.{' '}
+                  <a href="https://fancard.me" className="text-[#6FE866] hover:underline" target="_blank" rel="noopener noreferrer">fancard.me</a>.{' '}
                   Fancard B.V. (<strong className="text-gray-900">"Fancard"</strong>) has developed and exploits the Application and acts as responsible body for the lawfulness of the processing of your Personal Data under data protection laws. Please find our contact details below:
                 </p>
                 <div className="p-5 rounded-xl bg-gray-50 border border-gray-200 space-y-1">
@@ -44,7 +44,7 @@ export function PrivacyPolicy() {
                   <p>The Netherlands</p>
                   <p className="mt-2">
                     In case you have any questions relating to data protection, please contact us via{' '}
-                    <a href="mailto:info@fancard.me" className="text-[#BEF264] hover:underline">info@fancard.me</a>
+                    <a href="mailto:info@fancard.me" className="text-[#6FE866] hover:underline">info@fancard.me</a>
                   </p>
                 </div>
               </section>
@@ -150,12 +150,12 @@ export function PrivacyPolicy() {
                 </ul>
                 <p className="leading-relaxed mb-4">
                   If you have a question about the processing of your personal data, or in case you want to exercise the above-mentioned rights, please contact us via{' '}
-                  <a href="mailto:info@fancard.me" className="text-[#BEF264] hover:underline">info@fancard.me</a>.
+                  <a href="mailto:info@fancard.me" className="text-[#6FE866] hover:underline">info@fancard.me</a>.
                   Your requests shall be exercised free of charge and will be addressed by us as early as possible and always within one month.
                 </p>
                 <p className="leading-relaxed">
                   If you are not satisfied with the way in which we handle your personal data or related requests and/or questions, you can also submit a complaint to the Dutch Data Protection Authority via:{' '}
-                  <a href="https://autoriteitpersoonsgegevens.nl" className="text-[#BEF264] hover:underline" target="_blank" rel="noopener noreferrer">autoriteitpersoonsgegevens.nl</a>.
+                  <a href="https://autoriteitpersoonsgegevens.nl" className="text-[#6FE866] hover:underline" target="_blank" rel="noopener noreferrer">autoriteitpersoonsgegevens.nl</a>.
                 </p>
               </section>
 

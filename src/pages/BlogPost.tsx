@@ -921,7 +921,7 @@ export function BlogPost() {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <span className="inline-block px-4 py-1.5 bg-[#BEF264] text-gray-900 text-sm font-semibold rounded-full capitalize">
+            <span className="inline-block px-4 py-1.5 bg-[#6FE866] text-gray-900 text-sm font-semibold rounded-full capitalize">
               {post.category === 'industry' ? 'Industry Insights' : post.category}
             </span>
           </motion.div>
@@ -993,9 +993,9 @@ export function BlogPost() {
                 [&_ul]:my-8 [&_ul]:space-y-3
                 [&_ol]:my-8 [&_ol]:space-y-3 [&_ol]:list-decimal [&_ol]:pl-6
                 [&_li]:text-gray-700 [&_li]:text-lg [&_li]:leading-relaxed [&_li]:pl-2
-                [&_ul_li]:pl-2 [&_ul_li]:relative [&_ul_li]:before:content-[''] [&_ul_li]:before:absolute [&_ul_li]:before:left-[-1.5rem] [&_ul_li]:before:top-[0.6rem] [&_ul_li]:before:w-2 [&_ul_li]:before:h-2 [&_ul_li]:before:rounded-full [&_ul_li]:before:bg-[#BEF264]
+                [&_ul_li]:pl-2 [&_ul_li]:relative [&_ul_li]:before:content-[''] [&_ul_li]:before:absolute [&_ul_li]:before:left-[-1.5rem] [&_ul_li]:before:top-[0.6rem] [&_ul_li]:before:w-2 [&_ul_li]:before:h-2 [&_ul_li]:before:rounded-full [&_ul_li]:before:bg-[#6FE866]
                 [&_strong]:text-gray-900 [&_strong]:font-bold
-                [&_a]:text-[#BEF264] [&_a]:no-underline [&_a]:font-medium hover:[&_a]:underline"
+                [&_a]:text-[#6FE866] [&_a]:no-underline [&_a]:font-medium hover:[&_a]:underline"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
@@ -1017,7 +1017,7 @@ export function BlogPost() {
                           onClick={() => scrollToSection(item.id)}
                           className={`block w-full text-left text-sm py-2 px-3 rounded-lg transition-all ${
                             activeSection === item.id
-                              ? 'bg-[#BEF264] text-gray-900 font-semibold'
+                              ? 'bg-[#6FE866] text-gray-900 font-semibold'
                               : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                           }`}
                         >
@@ -1048,7 +1048,7 @@ export function BlogPost() {
                           onClick={() => scrollToSection(item.id)}
                           className={`block w-full text-left text-sm py-2 px-3 rounded-lg transition-all ${
                             activeSection === item.id
-                              ? 'bg-[#BEF264] text-gray-900 font-semibold'
+                              ? 'bg-[#6FE866] text-gray-900 font-semibold'
                               : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                           }`}
                         >
@@ -1073,7 +1073,7 @@ export function BlogPost() {
           className="relative z-10 max-w-4xl mx-auto text-center"
         >
           <h2 className="text-gray-900 mb-6 text-3xl sm:text-4xl md:text-5xl font-bold">
-            Ready to Transform Your <span className="bg-gradient-to-r from-[#BEF264] to-[#86EFAC] bg-clip-text text-transparent">Fan Engagement?</span>
+            Ready to Transform Your <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Fan Engagement?</span>
           </h2>
           <p className="text-gray-600 text-lg sm:text-xl mb-8 max-w-2xl mx-auto">
             See how FanCard can help your venue create unforgettable experiences and measurable results.
