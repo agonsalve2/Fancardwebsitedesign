@@ -220,3 +220,12 @@ html {
 .animate-gradient {
   animation: gradient-shift 8s ease infinite;
 }
+
+/* Hide scrollbar for horizontal scroll strips */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
