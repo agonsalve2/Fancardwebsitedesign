@@ -121,7 +121,7 @@ export function Blog() {
 
               {/* Text side */}
               <div className={index % 2 === 1 ? 'md:order-1' : ''}>
-                <div className="text-[#6FE866] text-sm uppercase tracking-wider mb-3 font-semibold">
+                <div className="text-[#1A8A12] text-sm uppercase tracking-wider mb-3 font-semibold">
                   {post.category === 'industry' ? 'Industry Insights' : 'Guides'}
                 </div>
                 <Link to={`/blog/${post.slug}`}>
@@ -141,10 +141,10 @@ export function Blog() {
                 </div>
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-2 text-base font-semibold bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                  className="inline-flex items-center gap-2 text-base font-semibold bg-gradient-to-r from-[#1A8A12] to-[#2DA025] bg-clip-text text-transparent hover:opacity-80 transition-opacity"
                 >
                   Read Article
-                  <ArrowRight className="w-5 h-5 text-[#6FE866]" />
+                  <ArrowRight className="w-5 h-5 text-[#1A8A12]" />
                 </Link>
               </div>
             </motion.div>
