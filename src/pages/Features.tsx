@@ -334,8 +334,9 @@ export function Features() {
         {/* Fancard background */}
         <div className="absolute inset-0 z-0">
           <div
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
+            className="grid gap-3 p-2"
             style={{
+              gridTemplateColumns: 'repeat(8, 1fr)',
               width: '110%',
               marginLeft: '-5%',
             }}
@@ -439,8 +440,9 @@ export function Features() {
         {/* Fancard background with white overlay */}
         <div className="absolute inset-0 z-0">
           <div
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
+            className="grid gap-3 p-2"
             style={{
+              gridTemplateColumns: 'repeat(8, 1fr)',
               width: '110%',
               marginLeft: '-5%',
             }}
