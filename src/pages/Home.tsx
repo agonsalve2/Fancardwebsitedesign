@@ -412,6 +412,7 @@ function HowItWorksSection() {
 
 export function Home() {
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const mouseXRaw = useMotionValue(0);
@@ -444,10 +445,10 @@ export function Home() {
       <section
         ref={heroRef}
         className="relative w-full overflow-hidden"
-        style={{ height: '100dvh', backgroundColor: '#2A2A2A' }}
+        style={{ height: '100dvh', backgroundColor: '#2A2A2A', isolation: 'isolate' }}
       >
         {/* Card grid mosaic background */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center">
+        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
           <motion.div
             className="grid gap-3 p-2"
             style={{
@@ -489,7 +490,7 @@ export function Home() {
         />
 
         {/* Copy text overlay */}
-        <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 sm:px-6 text-center pointer-events-none">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 sm:px-6 text-center pointer-events-none">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -518,7 +519,7 @@ export function Home() {
               Capture unforgettable fan moments at your event and transform them into lasting digital memories.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center pointer-events-auto">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center" style={{ position: 'relative', zIndex: 50, pointerEvents: 'auto' }}>
               <Button
                 size="lg"
                 className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 px-8 py-6 text-base font-semibold group transition-all duration-300"
@@ -531,6 +532,8 @@ export function Home() {
                 size="lg"
                 variant="outline"
                 className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 px-8 py-6 text-base font-semibold transition-all duration-300 backdrop-blur-sm"
+                onClick={() => setVideoOpen(true)}
+                style={{ pointerEvents: 'auto' }}
               >
                 <Play className="mr-2 w-5 h-5" strokeWidth={1.5} fill="currentColor" />
                 Watch Demo
@@ -681,6 +684,65 @@ export function Home() {
       </section>
 
       <BookDemoDialog open={demoDialogOpen} onOpenChange={setDemoDialogOpen} />
+
+      {/* Video Modal */}
+      {videoOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 99999,
+            backgroundColor: 'rgba(0,0,0,0.85)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+          }}
+          onClick={() => setVideoOpen(false)}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '90vw',
+              maxWidth: '960px',
+              aspectRatio: '16/9',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setVideoOpen(false)}
+              style={{
+                position: 'absolute',
+                top: -40,
+                right: 0,
+                background: 'none',
+                border: 'none',
+                color: 'white',
+                fontSize: 28,
+                cursor: 'pointer',
+                fontWeight: 700,
+              }}
+            >
+              ✕
+            </button>
+            <iframe
+              src="https://player.vimeo.com/video/1174413977?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                borderRadius: 8,
+              }}
+              title="FANCARD"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -57,7 +57,7 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
       };
 
       // Submit to Google Sheet via SheetDB
-      const response = await fetch('https://sheetdb.io/api/v1/ma1hpjen4q1ke', {
+      const sheetPromise = fetch('https://sheetdb.io/api/v1/ma1hpjen4q1ke', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -66,9 +66,26 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
         body: JSON.stringify(submissionData),
       });
 
-      const responseData = await response.json();
-      
-      if (!response.ok) {
+      // Send confirmation email + notify Dennis via Brevo
+      const brevoPromise = fetch('/api/demo-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          venueName: formData.venueName,
+          interest: formData.interest,
+        }),
+      });
+
+      // Run both in parallel — SheetDB is the critical one
+      const [sheetResponse] = await Promise.all([sheetPromise, brevoPromise]);
+
+      const responseData = await sheetResponse.json();
+
+      if (!sheetResponse.ok) {
         console.error('API Error:', responseData);
         throw new Error(responseData.message || 'Failed to submit form');
       }
@@ -186,12 +203,12 @@ export function BookDemoDialog({ open, onOpenChange }: BookDemoDialogProps) {
               <SelectTrigger className="bg-gray-50 border-gray-200 text-gray-900 focus:border-[#6FE866] focus:ring-[#6FE866]/20">
                 <SelectValue placeholder="Select an option" />
               </SelectTrigger>
-              <SelectContent className="bg-white border-gray-200">
-                <SelectItem value="demo">Scheduling a Demo</SelectItem>
-                <SelectItem value="pricing">Pricing Information</SelectItem>
-                <SelectItem value="integration">Venue Integration</SelectItem>
-                <SelectItem value="partnership">Partnership Opportunities</SelectItem>
-                <SelectItem value="other">General Inquiry</SelectItem>
+              <SelectContent className="bg-white border-gray-200 text-gray-900">
+                <SelectItem className="text-gray-700 focus:bg-gray-100 focus:text-gray-900" value="demo">Scheduling a Demo</SelectItem>
+                <SelectItem className="text-gray-700 focus:bg-gray-100 focus:text-gray-900" value="pricing">Pricing Information</SelectItem>
+                <SelectItem className="text-gray-700 focus:bg-gray-100 focus:text-gray-900" value="integration">Venue Integration</SelectItem>
+                <SelectItem className="text-gray-700 focus:bg-gray-100 focus:text-gray-900" value="partnership">Partnership Opportunities</SelectItem>
+                <SelectItem className="text-gray-700 focus:bg-gray-100 focus:text-gray-900" value="other">General Inquiry</SelectItem>
               </SelectContent>
             </Select>
           </div>
