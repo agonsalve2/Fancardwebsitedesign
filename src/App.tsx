@@ -53,6 +53,8 @@ function AppContent() {
 
       {/* Hamburger menu — all pages */}
       <button
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
         style={{
           position: 'fixed',
           top: 24,
@@ -79,7 +81,7 @@ function AppContent() {
             top: 72,
             right: 24,
             zIndex: 9998,
-            width: 280,
+            width: 'min(280px, calc(100vw - 48px))',
             aspectRatio: '3 / 4',
             borderRadius: 20,
             boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
@@ -161,6 +163,7 @@ function AppContent() {
       <div className="relative min-h-screen" style={{ backgroundColor: '#f7f7f8' }}>
         <FancardBackground />
         <div className="relative" style={{ zIndex: 1 }}>
+        {!isHome && <Navigation />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

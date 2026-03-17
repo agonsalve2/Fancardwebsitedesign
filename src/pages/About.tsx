@@ -140,7 +140,7 @@ export function About() {
       </section>
 
       {/* 2) Our Core Values — Full viewport */}
-      <section className="relative flex flex-col justify-center px-4 sm:px-6 lg:px-8 overflow-hidden snap-start" style={{ height: '100dvh', maxHeight: '100dvh' }}>
+      <section className="relative flex flex-col justify-center px-4 sm:px-6 lg:px-8 overflow-hidden snap-start py-16 sm:py-0" style={{ minHeight: '100dvh' }}>
         <div className="max-w-7xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

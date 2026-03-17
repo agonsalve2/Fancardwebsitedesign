@@ -9,13 +9,13 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-gray-200 py-4 px-6 bg-white">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <img src={logo} alt="Fancard Logo" className="h-6" />
-          <p className="text-gray-400 text-xs font-medium">© 2025 Fancard. All rights reserved.</p>
+          <p className="text-gray-400 text-xs font-medium">© {new Date().getFullYear()} Fancard. All rights reserved.</p>
         </div>
 
-        <div className="flex items-center gap-5 text-xs font-medium">
+        <div className="flex flex-wrap items-center justify-center gap-5 text-xs font-medium">
           <Link to="/about" className="text-gray-500 hover:text-gray-900 transition-colors">About</Link>
           <Link to="/how-it-works" className="text-gray-500 hover:text-gray-900 transition-colors">How It Works</Link>
           <Link to="/features" className="text-gray-500 hover:text-gray-900 transition-colors">Features</Link>

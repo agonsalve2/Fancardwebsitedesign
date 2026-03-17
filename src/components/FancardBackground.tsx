@@ -32,9 +32,8 @@ export function FancardBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
       <div
-        className="grid gap-3 sm:gap-4 p-2"
+        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
         style={{
-          gridTemplateColumns: 'repeat(6, 1fr)',
           width: '110%',
           marginLeft: '-5%',
         }}

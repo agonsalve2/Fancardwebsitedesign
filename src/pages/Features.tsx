@@ -18,6 +18,7 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { BookDemoDialog } from '../components/BookDemoDialog';
 import { Button } from '../components/ui/button';
 import { useState, useEffect, useRef } from 'react';
+import { useIsMobile } from '../components/ui/use-mobile';
 import {
   Carousel,
   CarouselContent,
@@ -36,40 +37,17 @@ import tritonsImage from 'figma:asset/906cc92887cec61e1102255f8817ce3d0b3164f1.p
 import kungFuPandaImage from 'figma:asset/e69976e109d3a3296f48b8a14a2357844465665c.png';
 import type { LucideIcon } from 'lucide-react';
 
-// Fancard images for hero background mosaic
+import { allCardImages as heroCardImages, cardRotations as heroCardRotations } from '../components/FancardBackground';
+
+// Individual card imports still needed for feature card backgrounds
 import cascaisFancard1 from 'figma:asset/e9796bab216c855789eaba4da1b5e2aae0cdc5ee.png';
 import cascaisFancard2 from 'figma:asset/6a560fc3086fe4114b4ea82503ed3a06ef7e3d6f.png';
-import cascaisFancard3 from 'figma:asset/ee57e1d947aacfbcbe92a9ee9d8e52963ddfe862.png';
 import sportworxFancard1 from 'figma:asset/84c64f6033bda7062a46815302b12955b80c4967.png';
 import sportworxFancard2 from 'figma:asset/bd1d33cc6e557592044c709b15d115806d48b6f1.png';
-import sportworxFancard3 from 'figma:asset/738bc0483b8952cca79650579430057449dff8df.png';
 import lafFancard1 from 'figma:asset/ca0e056b2fdf8800c98953657932d5621bae45b2.png';
 import lafFancard2 from 'figma:asset/8d65b1cc55257b5972296c8edbf1947171afbd46.png';
-import lafFancard3 from 'figma:asset/b080cb6a7a16438266b0abd5a6ac810b4e27fa7e.png';
 import ballerMarketPromo1 from 'figma:asset/953729f053e165eb4313dee5ba93b31eac681909.png';
 import ballerMarketPromo2 from 'figma:asset/948086022b07218b5b69aa0554c5b0dfabce40f2.png';
-import fancardExample from '../assets/fancard-example.jpg';
-
-const heroCardImages = [
-  cascaisFancard1, sportworxFancard1, lafFancard1, fancardExample, ballerMarketPromo1,
-  cascaisFancard2, sportworxFancard2, lafFancard2, ballerMarketPromo2, cascaisFancard3,
-  sportworxFancard3, lafFancard3, cascaisFancard1, fancardExample, sportworxFancard1,
-  lafFancard1, ballerMarketPromo1, cascaisFancard2, sportworxFancard2, lafFancard2,
-  ballerMarketPromo2, cascaisFancard3, sportworxFancard3, lafFancard3, fancardExample,
-  cascaisFancard1, sportworxFancard1, lafFancard1, cascaisFancard2, ballerMarketPromo1,
-];
-
-const heroCardRotations = [
-  -3, 2, -1, 3, -2, 1, -3, 2, -1, 3,
-  2, -2, 1, -3, 2, -1, 3, -2, 1, -3,
-  -1, 3, -2, 1, -3, 2, -1, 3, -2, 1,
-];
-
-const heroCardDepths = [
-  0.3, 0.6, 0.2, 0.5, 0.4, 0.7, 0.3, 0.5, 0.2, 0.6,
-  0.4, 0.3, 0.7, 0.2, 0.5, 0.6, 0.3, 0.4, 0.7, 0.2,
-  0.5, 0.3, 0.6, 0.4, 0.2, 0.7, 0.5, 0.3, 0.6, 0.4,
-];
 
 const bounceEase = [0.34, 1.56, 0.64, 1] as const;
 
@@ -160,6 +138,7 @@ const TOTAL_CARDS = 8;
 const EXTRA_CARDS = TOTAL_CARDS - VISIBLE_CARDS; // 3 cards to scroll in
 
 function FeatureCardStrip({ features }: { features: { icon: LucideIcon; title: string; description: string; bg: string }[] }) {
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -172,27 +151,53 @@ function FeatureCardStrip({ features }: { features: { icon: LucideIcon; title: s
   const maxShift = totalStripWidth - visibleWidth;
   const x = useTransform(scrollYProgress, [0.1, 0.9], [0, -maxShift]);
 
+  const headerContent = (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="text-center mb-8 sm:mb-10 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="text-[#6FE866] text-sm uppercase tracking-wider mb-4 font-semibold">
+        COMPLETE FEATURE SET
+      </div>
+      <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
+        Everything You Need
+      </h2>
+      <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
+        From real-time analytics to white-label solutions — every tool to create,
+        deploy, and measure successful fan engagement campaigns.
+      </p>
+    </motion.div>
+  );
+
+  if (isMobile) {
+    return (
+      <section className="bg-white py-16 sm:py-20 snap-start">
+        {headerContent}
+        <div className="grid grid-cols-2 gap-3 px-4">
+          {features.map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: i * 0.06, ease: bounceEase }}
+              style={{ height: CARD_HEIGHT }}
+            >
+              <FeatureCard icon={card.icon} title={card.title} description={card.description} bgImage={card.bg} />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <div ref={containerRef} style={{ height: `${100 + EXTRA_CARDS * 50}vh` }}>
       <div className="sticky top-0 flex flex-col justify-center overflow-hidden bg-white snap-start" style={{ height: '100dvh' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-8 sm:mb-10 px-4 sm:px-6 lg:px-8"
-        >
-          <div className="text-[#6FE866] text-sm uppercase tracking-wider mb-4 font-semibold">
-            COMPLETE FEATURE SET
-          </div>
-          <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
-            Everything You Need
-          </h2>
-          <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
-            From real-time analytics to white-label solutions — every tool to create,
-            deploy, and measure successful fan engagement campaigns.
-          </p>
-        </motion.div>
+        {headerContent}
 
         {/* Centered card strip that shifts left on scroll */}
         <div
@@ -329,9 +334,8 @@ export function Features() {
         {/* Fancard background */}
         <div className="absolute inset-0 z-0">
           <div
-            className="grid gap-3 sm:gap-4 p-2"
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
             style={{
-              gridTemplateColumns: 'repeat(6, 1fr)',
               width: '110%',
               marginLeft: '-5%',
             }}
@@ -435,9 +439,8 @@ export function Features() {
         {/* Fancard background with white overlay */}
         <div className="absolute inset-0 z-0">
           <div
-            className="grid gap-3 sm:gap-4 p-2"
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
             style={{
-              gridTemplateColumns: 'repeat(6, 1fr)',
               width: '110%',
               marginLeft: '-5%',
             }}
