@@ -14,36 +14,7 @@ import lucasImage from 'figma:asset/ebec16c47ac04cd1e1853b109d5159b1b3455ca0.png
 import { PartnerSlider } from '../components/PartnerSlider';
 import { HowItWorksAlt } from '../components/HowItWorksAlt';
 
-// Fancard images for the hero background
-import cascaisFancard1 from 'figma:asset/e9796bab216c855789eaba4da1b5e2aae0cdc5ee.png';
-import cascaisFancard2 from 'figma:asset/6a560fc3086fe4114b4ea82503ed3a06ef7e3d6f.png';
-import cascaisFancard3 from 'figma:asset/ee57e1d947aacfbcbe92a9ee9d8e52963ddfe862.png';
-import sportworxFancard1 from 'figma:asset/84c64f6033bda7062a46815302b12955b80c4967.png';
-import sportworxFancard2 from 'figma:asset/bd1d33cc6e557592044c709b15d115806d48b6f1.png';
-import sportworxFancard3 from 'figma:asset/738bc0483b8952cca79650579430057449dff8df.png';
-import lafFancard1 from 'figma:asset/ca0e056b2fdf8800c98953657932d5621bae45b2.png';
-import lafFancard2 from 'figma:asset/8d65b1cc55257b5972296c8edbf1947171afbd46.png';
-import lafFancard3 from 'figma:asset/b080cb6a7a16438266b0abd5a6ac810b4e27fa7e.png';
-import ballerMarketPromo1 from 'figma:asset/953729f053e165eb4313dee5ba93b31eac681909.png';
-import ballerMarketPromo2 from 'figma:asset/948086022b07218b5b69aa0554c5b0dfabce40f2.png';
-import fancardExample from '../assets/fancard-example.jpg';
-
-// All card images for the grid mosaic
-const allCardImages = [
-  cascaisFancard1, sportworxFancard1, lafFancard1, fancardExample, ballerMarketPromo1,
-  cascaisFancard2, sportworxFancard2, lafFancard2, ballerMarketPromo2, cascaisFancard3,
-  sportworxFancard3, lafFancard3, cascaisFancard1, fancardExample, sportworxFancard1,
-  lafFancard1, ballerMarketPromo1, cascaisFancard2, sportworxFancard2, lafFancard2,
-  ballerMarketPromo2, cascaisFancard3, sportworxFancard3, lafFancard3, fancardExample,
-  cascaisFancard1, sportworxFancard1, lafFancard1, cascaisFancard2, ballerMarketPromo1,
-];
-
-// Slight rotations for each card to give organic feel
-const cardRotations = [
-  -3, 2, -1, 3, -2, 1, -3, 2, -1, 3,
-  2, -2, 1, -3, 2, -1, 3, -2, 1, -3,
-  -1, 3, -2, 1, -3, 2, -1, 3, -2, 1,
-];
+import { allCardImages, cardRotations } from '../components/FancardBackground';
 
 // Depth values for parallax (0 = no movement, 1 = max movement)
 const cardDepths = [
@@ -341,7 +312,7 @@ function HowItWorksSection() {
         </div>
 
         {/* Main content grid */}
-        <div className="relative z-10 h-full flex flex-col px-8 sm:px-12 md:px-20 lg:px-28">
+        <div className="relative z-10 h-full flex flex-col px-4 sm:px-6 md:px-12 lg:px-20">
           {/* Section header - top left */}
           <div className="mb-auto" style={{ paddingTop: 'calc(2.5rem + 80px)' }}>
             <h1 className="text-gray-900 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight">
@@ -400,7 +371,7 @@ function HowItWorksSection() {
         </div>
 
         {/* Bottom bar: progress + dots + arrows */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 px-8 sm:px-12 md:px-20 lg:px-28 pb-8">
+        <div className="absolute bottom-0 left-0 right-0 z-20 px-4 sm:px-6 md:px-12 lg:px-20 pb-8">
           {/* Progress bar */}
           <div className="h-[2px] bg-gray-200 rounded-full mb-6 max-w-7xl mx-auto overflow-hidden">
             <div
@@ -476,9 +447,8 @@ export function Home() {
         {/* Card grid mosaic background */}
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <motion.div
-            className="grid gap-3 sm:gap-4 p-2"
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
             style={{
-              gridTemplateColumns: 'repeat(6, 1fr)',
               width: '110%',
               x: useTransform(mouseX, [-0.5, 0.5], [10, -10]),
               y: useTransform(mouseY, [-0.5, 0.5], [10, -10]),
@@ -593,9 +563,8 @@ export function Home() {
         {/* Fancard background with white overlay */}
         <div className="absolute inset-0 z-0">
           <div
-            className="grid gap-3 sm:gap-4 p-2"
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
             style={{
-              gridTemplateColumns: 'repeat(6, 1fr)',
               width: '110%',
               marginLeft: '-5%',
             }}
