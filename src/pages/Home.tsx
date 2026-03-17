@@ -12,6 +12,7 @@ import { useState, useRef, useEffect } from 'react';
 import goncaloImage from 'figma:asset/b2d04521a989759d87eb9a5ccedc99d7a5e8da65.png';
 import lucasImage from 'figma:asset/ebec16c47ac04cd1e1853b109d5159b1b3455ca0.png';
 import { PartnerSlider } from '../components/PartnerSlider';
+import fancardLogoBlack from '../assets/Fancard-logo-black.svg';
 import { HowItWorksAlt } from '../components/HowItWorksAlt';
 
 import { allCardImages, cardRotations } from '../components/FancardBackground';
@@ -651,6 +652,7 @@ export function Home() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-5xl mx-auto text-center"
           >
+            <img src={fancardLogoBlack} alt="Fancard" className="h-10 sm:h-12 mx-auto mb-8" />
             <h2 className="text-gray-900 mb-8 sm:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight px-4">
               Start Turning Moments Into
               <br />
