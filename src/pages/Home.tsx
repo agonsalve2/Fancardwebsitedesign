@@ -22,6 +22,7 @@ const cardDepths = [
   0.3, 0.6, 0.2, 0.5, 0.4, 0.7, 0.3, 0.5, 0.2, 0.6,
   0.4, 0.3, 0.7, 0.2, 0.5, 0.6, 0.3, 0.4, 0.7, 0.2,
   0.5, 0.3, 0.6, 0.4, 0.2, 0.7, 0.5, 0.3, 0.6, 0.4,
+  0.4, 0.5, 0.3, 0.6, 0.2, 0.7, 0.4, 0.5, 0.3, 0.6,
 ];
 
 const hiwSteps = [
@@ -265,7 +266,7 @@ function HowItWorksSection() {
             <div
               className="grid gap-3 sm:gap-4 p-2"
               style={{
-                gridTemplateColumns: 'repeat(6, 1fr)',
+                gridTemplateColumns: 'repeat(8, 1fr)',
                 width: '110%',
                 marginLeft: '-5%',
               }}
@@ -448,8 +449,9 @@ export function Home() {
         {/* Card grid mosaic background */}
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <motion.div
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
+            className="grid gap-3 p-2"
             style={{
+              gridTemplateColumns: 'repeat(8, 1fr)',
               width: '110%',
               x: useTransform(mouseX, [-0.5, 0.5], [10, -10]),
               y: useTransform(mouseY, [-0.5, 0.5], [10, -10]),
@@ -564,8 +566,9 @@ export function Home() {
         {/* Fancard background with white overlay */}
         <div className="absolute inset-0 z-0">
           <div
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
+            className="grid gap-3 p-2"
             style={{
+              gridTemplateColumns: 'repeat(8, 1fr)',
               width: '110%',
               marginLeft: '-5%',
             }}

@@ -18,12 +18,15 @@ const allCardImages = [
   lafFancard1, ballerMarketPromo1, cascaisFancard2, sportworxFancard2, lafFancard2,
   ballerMarketPromo2, cascaisFancard3, sportworxFancard3, lafFancard3, fancardExample,
   cascaisFancard1, sportworxFancard1, lafFancard1, cascaisFancard2, ballerMarketPromo1,
+  sportworxFancard3, lafFancard2, cascaisFancard3, fancardExample, sportworxFancard2,
+  lafFancard3, ballerMarketPromo2, cascaisFancard1, sportworxFancard1, lafFancard1,
 ];
 
 const cardRotations = [
   -3, 2, -1, 3, -2, 1, -3, 2, -1, 3,
   2, -2, 1, -3, 2, -1, 3, -2, 1, -3,
   -1, 3, -2, 1, -3, 2, -1, 3, -2, 1,
+  2, -1, 3, -2, 1, -3, 2, -1, 3, -2,
 ];
 
 export { allCardImages, cardRotations };
@@ -32,8 +35,9 @@ export function FancardBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
       <div
-        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 p-2"
+        className="grid gap-3 p-2"
         style={{
+          gridTemplateColumns: 'repeat(8, 1fr)',
           width: '110%',
           marginLeft: '-5%',
         }}
