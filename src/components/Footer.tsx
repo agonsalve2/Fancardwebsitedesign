@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { useState } from 'react';
 import { BookDemoDialog } from './BookDemoDialog';
 import { Linkedin } from 'lucide-react';
-import logo from 'figma:asset/f05cd56ad70dcc00ad42222212576e439dc26ee5.png';
+import logo from '../assets/Fancard-logo-black.svg';
 
 export function Footer() {
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
