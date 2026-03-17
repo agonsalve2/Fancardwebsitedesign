@@ -26,12 +26,25 @@ import faviconUrl from 'figma:asset/d3af5ffa94190404d55bc9b16c5135c7285fa901.png
 import { FancardBackground } from './components/FancardBackground';
 import { BookDemoDialog } from './components/BookDemoDialog';
 import menuBgCard from 'figma:asset/e9796bab216c855789eaba4da1b5e2aae0cdc5ee.png';
+import fancardLogoWhite from './assets/Fancard-logo-white.svg';
+import fancardLogoBlack from './assets/Fancard-logo-black.svg';
 
 function AppContent() {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const [menuOpen, setMenuOpen] = useState(false);
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+
+  useEffect(() => {
+    if (!isHome) return;
+    const handleScroll = () => {
+      setPastHero(window.scrollY >= window.innerHeight * 0.8);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHome]);
 
   useEffect(() => {
     const link: HTMLLinkElement =
@@ -51,28 +64,49 @@ function AppContent() {
     <>
       <ScrollToTop />
 
-      {/* Hamburger menu — all pages */}
-      <button
-        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={menuOpen}
+      {/* Top bar — logo left, hamburger right, vertically centered */}
+      <div
         style={{
           position: 'fixed',
           top: 24,
+          left: 24,
           right: 24,
           zIndex: 9999,
-          padding: 12,
-          borderRadius: '50%',
-          backgroundColor: isHome ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.08)',
-          backdropFilter: 'blur(12px)',
-          border: isHome ? '1px solid rgba(255,255,255,0.3)' : '1px solid rgba(0,0,0,0.1)',
-          color: isHome ? 'white' : '#2A2A2A',
-          cursor: 'pointer',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          pointerEvents: 'none',
         }}
-        onClick={() => setMenuOpen(!menuOpen)}
       >
-        {menuOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+        {/* Logo — top left */}
+        <Link to="/" style={{ pointerEvents: 'auto' }}>
+          <img
+            src={isHome ? (pastHero ? fancardLogoBlack : fancardLogoWhite) : fancardLogoBlack}
+            alt="Fancard"
+            style={{ height: 32, transition: 'opacity 0.3s' }}
+          />
+        </Link>
+
+        {/* Hamburger menu — all pages */}
+        <button
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          style={{
+            pointerEvents: 'auto',
+            padding: 12,
+            borderRadius: '50%',
+            backgroundColor: isHome ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.08)',
+            backdropFilter: 'blur(12px)',
+            border: isHome ? '1px solid rgba(255,255,255,0.3)' : '1px solid rgba(0,0,0,0.1)',
+            color: isHome ? 'white' : '#2A2A2A',
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          }}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
 
       {menuOpen && (
         <motion.div
@@ -163,7 +197,6 @@ function AppContent() {
       <div className="relative min-h-screen" style={{ backgroundColor: '#f7f7f8' }}>
         <FancardBackground />
         <div className="relative" style={{ zIndex: 1 }}>
-        {!isHome && <Navigation />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

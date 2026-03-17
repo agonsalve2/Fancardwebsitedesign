@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { BookDemoDialog } from './BookDemoDialog';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import logo from 'figma:asset/f05cd56ad70dcc00ad42222212576e439dc26ee5.png';
+import logo from '../assets/Fancard-logo-white.svg';
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,10 +33,10 @@ export function Navigation() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="relative group">
-            <motion.img 
-              src={logo} 
-              alt="Fancard Logo" 
-              className="h-7 md:h-8"
+            <motion.img
+              src={logo}
+              alt="Fancard Logo"
+              className="h-8 md:h-10 w-auto"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             />
