@@ -447,9 +447,9 @@ export function Home() {
         style={{ height: '100dvh', backgroundColor: '#2A2A2A', isolation: 'isolate' }}
       >
         {/* Card grid mosaic background */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 z-0 flex items-center justify-center">
           <motion.div
-            className="grid gap-3 p-2"
+            className="grid gap-3 p-2 overflow-visible"
             style={{
               gridTemplateColumns: 'repeat(8, 1fr)',
               width: '110%',
@@ -460,16 +460,16 @@ export function Home() {
             {allCardImages.map((src, i) => (
               <motion.div
                 key={i}
-                className="rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer"
+                className="cursor-pointer pointer-events-auto"
                 style={{
-                  rotate: cardRotations[i],
                   x: useTransform(mouseX, [-0.5, 0.5], [-20 * cardDepths[i], 20 * cardDepths[i]]),
                   y: useTransform(mouseY, [-0.5, 0.5], [-15 * cardDepths[i], 15 * cardDepths[i]]),
                 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.1, rotate: cardRotations[i] + ((i * 7 + 3) % 11 - 5) * 2, zIndex: 10, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+                initial={{ opacity: 0, scale: 0.8, rotate: cardRotations[i] }}
+                animate={{ opacity: 1, scale: 1, rotate: cardRotations[i] }}
+                whileHover={{ scale: 1.15, rotate: cardRotations[i] + (Math.random() - 0.5) * 20, zIndex: 50, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
                 transition={{ duration: 0.6, delay: i * 0.03, ease: [0.22, 1, 0.36, 1] }}
+
               >
                 <img
                   src={src}
