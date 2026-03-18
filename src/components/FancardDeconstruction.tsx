@@ -13,9 +13,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function FancardDeconstruction({ onBookDemo }: { onBookDemo: () => void }) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const layer1Ref = useRef<HTMLImageElement>(null);
-  const layer2Ref = useRef<HTMLImageElement>(null);
-  const layer3Ref = useRef<HTMLImageElement>(null);
+  const layer1Ref = useRef<HTMLDivElement>(null);
+  const layer2Ref = useRef<HTMLDivElement>(null);
+  const layer3Ref = useRef<HTMLDivElement>(null);
+  const label1Ref = useRef<HTMLSpanElement>(null);
+  const label2Ref = useRef<HTMLSpanElement>(null);
+  const label3Ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -33,15 +36,17 @@ export function FancardDeconstruction({ onBookDemo }: { onBookDemo: () => void }
       const explodeProps2 = { x: "0%", rotateY: -35, ease: "power2.inOut" };
       const explodeProps3 = { x: "-110%", rotateY: -35, ease: "power2.inOut" };
 
-      // First half: deconstruct
+      // First half: deconstruct layers + fade in labels
       tl.to(layer1Ref.current, explodeProps1, 0);
       tl.to(layer2Ref.current, explodeProps2, 0);
       tl.to(layer3Ref.current, explodeProps3, 0);
+      tl.to([label1Ref.current, label2Ref.current, label3Ref.current], { opacity: 1, ease: "power2.inOut" }, 0);
 
-      // Second half: reconstruct back to stacked
+      // Second half: reconstruct back to stacked + fade out labels
       tl.to(layer1Ref.current, { x: 0, rotateY: 0, ease: "power2.inOut" }, 0.5);
       tl.to(layer2Ref.current, { x: 0, rotateY: 0, ease: "power2.inOut" }, 0.5);
       tl.to(layer3Ref.current, { x: 0, rotateY: 0, ease: "power2.inOut" }, 0.5);
+      tl.to([label1Ref.current, label2Ref.current, label3Ref.current], { opacity: 0, ease: "power2.inOut" }, 0.5);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -91,39 +96,72 @@ export function FancardDeconstruction({ onBookDemo }: { onBookDemo: () => void }
 
         {/* 3D card container */}
         <div
-          className="relative z-[2]"
+          className="relative z-[2] mb-10"
           style={{
             width: "min(60vw, 340px)",
             aspectRatio: "3 / 4",
             transformStyle: "preserve-3d",
           }}
         >
-          {/* Layer 1 — Stadium background (back) */}
-          <img
+          {/* Layer 1 — Stadium background (back) → YOUR EVENT */}
+          <div
             ref={layer1Ref}
-            src={layer1Src}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+            className="absolute inset-0 w-full h-full"
             style={{ zIndex: 1, willChange: "transform" }}
-          />
+          >
+            <img
+              src={layer1Src}
+              alt=""
+              className="w-full h-full object-cover rounded-2xl"
+            />
+            <span
+              ref={label1Ref}
+              className="absolute left-1/2 -translate-x-1/2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black bg-[#6FE866] px-4 py-1.5 rounded-full whitespace-nowrap"
+              style={{ opacity: 0, top: "calc(100% + 12px)" }}
+            >
+              YOUR EVENT
+            </span>
+          </div>
 
-          {/* Layer 2 — Fan photo (middle / anchor) */}
-          <img
+          {/* Layer 2 — Fan photo (middle / anchor) → FAN */}
+          <div
             ref={layer2Ref}
-            src={layer2Src}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+            className="absolute inset-0 w-full h-full"
             style={{ zIndex: 2, willChange: "transform" }}
-          />
+          >
+            <img
+              src={layer2Src}
+              alt=""
+              className="w-full h-full object-cover rounded-2xl"
+            />
+            <span
+              ref={label2Ref}
+              className="absolute left-1/2 -translate-x-1/2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black bg-[#6FE866] px-4 py-1.5 rounded-full whitespace-nowrap"
+              style={{ opacity: 0, top: "calc(100% + 12px)" }}
+            >
+              FAN
+            </span>
+          </div>
 
-          {/* Layer 3 — Card frame (front) */}
-          <img
+          {/* Layer 3 — Card frame (front) → FANCARD */}
+          <div
             ref={layer3Ref}
-            src={layer3Src}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl"
+            className="absolute inset-0 w-full h-full"
             style={{ zIndex: 3, willChange: "transform" }}
-          />
+          >
+            <img
+              src={layer3Src}
+              alt=""
+              className="w-full h-full object-cover rounded-2xl"
+            />
+            <span
+              ref={label3Ref}
+              className="absolute left-1/2 -translate-x-1/2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black bg-[#6FE866] px-4 py-1.5 rounded-full whitespace-nowrap"
+              style={{ opacity: 0, top: "calc(100% + 12px)" }}
+            >
+              FANCARD
+            </span>
+          </div>
         </div>
 
         {/* CTA Text */}
