@@ -9,11 +9,10 @@ import { Link } from 'react-router';
 import { Button } from '../components/ui/button';
 import { BookDemoDialog } from '../components/BookDemoDialog';
 import { useState, useRef, useEffect } from 'react';
-import goncaloImage from 'figma:asset/b2d04521a989759d87eb9a5ccedc99d7a5e8da65.png';
-import lucasImage from 'figma:asset/ebec16c47ac04cd1e1853b109d5159b1b3455ca0.png';
 import { PartnerSlider } from '../components/PartnerSlider';
 import fancardLogoBlack from '../assets/Fancard-logo-black.svg';
 import { HowItWorksAlt } from '../components/HowItWorksAlt';
+import { FancardDeconstruction } from '../components/FancardDeconstruction';
 
 import { allCardImages, cardRotations } from '../components/FancardBackground';
 
@@ -564,124 +563,8 @@ export function Home() {
       {/* How It Works — Alternative Layout (Tab + Preview) */}
       {false && <HowItWorksAlt onBookDemo={() => setDemoDialogOpen(true)} />}
 
-      {/* Combined Testimonials + CTA — Full viewport */}
-      <section className="relative w-full overflow-hidden flex flex-col justify-center px-4 sm:px-6 lg:px-8 snap-start" style={{ minHeight: '100dvh' }}>
-        {/* Fancard background with white overlay */}
-        <div className="absolute inset-0 z-0">
-          <div
-            className="grid gap-3 p-2"
-            style={{
-              gridTemplateColumns: 'repeat(8, 1fr)',
-              width: '110%',
-              marginLeft: '-5%',
-            }}
-          >
-            {allCardImages.map((src, i) => (
-              <div
-                key={i}
-                className="rounded-xl sm:rounded-2xl overflow-hidden"
-                style={{ rotate: `${cardRotations[i]}deg` }}
-              >
-                <img
-                  src={src}
-                  alt=""
-                  className="w-full h-auto block rounded-xl sm:rounded-2xl"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="absolute inset-0 z-[1]" style={{ backgroundColor: 'rgba(255,255,255,0.9)' }} />
-
-        <div className="relative z-[2] max-w-7xl mx-auto w-full py-16 sm:py-20">
-          {/* Trusted by Leaders */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10 sm:mb-14"
-          >
-            <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl md:text-5xl font-bold">
-              Trusted by Leaders
-            </h2>
-            <p className="text-gray-600 text-base sm:text-lg max-w-3xl mx-auto">
-              See what sports organizations are saying about Fancard
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-16 sm:mb-20">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0 }}
-              className="bg-white rounded-2xl p-8 sm:p-10 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
-            >
-              <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed mb-8">
-                Fancard transforms passive viewing into an interactive game that travels with you long after the final whistle.
-              </p>
-              <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
-                <img src={lucasImage} alt="Lucas Bugter" className="w-16 h-16 rounded-full object-cover" />
-                <div>
-                  <div className="font-bold text-gray-900 text-lg">Lucas Bugter</div>
-                  <div className="text-gray-600">CMO, Sportworx</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white rounded-2xl p-8 sm:p-10 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
-            >
-              <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed mb-8">
-                Fancard is a great platform for connecting the club's activities with its fans - both local and international.
-              </p>
-              <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
-                <img src={goncaloImage} alt="Gonçalo de Moura" className="w-16 h-16 rounded-full object-cover" />
-                <div>
-                  <div className="font-bold text-gray-900 text-lg">Gonçalo de Moura</div>
-                  <div className="text-gray-600">CEO, CS Cascais</div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-5xl mx-auto text-center"
-          >
-            <img src={fancardLogoBlack} alt="Fancard" className="h-10 sm:h-12 mx-auto mb-8" />
-            <h2 className="text-gray-900 mb-8 sm:mb-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-bold tracking-tight px-4">
-              Start Turning Moments Into
-              <br />
-              <span className="bg-gradient-to-r from-[#6FE866] to-[#8FF888] bg-clip-text text-transparent">Measurable Value.</span>
-            </h2>
-
-            <p className="text-gray-600 text-xl sm:text-2xl mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join leading sports organizations creating unforgettable experiences that drive loyalty and revenue.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center">
-              <Button
-                size="lg"
-                className="bg-[#6FE866] hover:bg-[#5CD85C] text-black border-0 px-10 py-7 text-lg sm:text-xl font-semibold group transition-all duration-300"
-                onClick={() => setDemoDialogOpen(true)}
-              >
-                Book a Demo
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" strokeWidth={1.5} />
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* CTA Section with Fancard Deconstruction */}
+      <FancardDeconstruction onBookDemo={() => setDemoDialogOpen(true)} />
 
       <BookDemoDialog open={demoDialogOpen} onOpenChange={setDemoDialogOpen} />
 
