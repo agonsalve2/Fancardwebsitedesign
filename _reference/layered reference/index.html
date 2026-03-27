@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fancard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@400;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=5">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+  <!-- SECTION 1: PARALLAX HERO -->
+  <section class="parallax-hero">
+    <!-- 20 placeholder images — spread across 3600px, avoiding text zones -->
+    <!-- Text 1 zone: left 8%, top 12% (~432px). Text 2 zone: right 10%, top 62% (~2232px) -->
+
+    <!-- 20 images — speeds: depth3=0.08-0.15 (barely moves), depth2=0.4-0.55, depth1=0.85-1.0 (fast) -->
+
+    <!-- Top area (0-10%) — right side only to avoid text block 1 -->
+    <div class="parallax-img" data-speed="0.1" data-depth="3" style="--x: 55%; --y: 1%; --w: 260px;">
+      <div class="parallax-img-inner"><img src="images/hero-1.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.9" data-depth="1" style="--x: 78%; --y: 3%; --w: 200px;">
+      <div class="parallax-img-inner"><img src="images/hero-2.jpg" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.45" data-depth="2" style="--x: 72%; --y: 5%; --w: 180px;">
+      <div class="parallax-img-inner"><img src="images/hero-3.jpg" alt=""></div>
+    </div>
+
+    <!-- Around text 1 (10-18%) — images on right side only -->
+    <div class="parallax-img" data-speed="0.95" data-depth="1" style="--x: 65%; --y: 10%; --w: 220px;">
+      <div class="parallax-img-inner"><img src="images/hero-4.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.5" data-depth="2" style="--x: 82%; --y: 14%; --w: 200px;">
+      <div class="parallax-img-inner"><img src="images/hero-5.png" alt=""></div>
+    </div>
+
+    <!-- Mid-upper (20-32%) — full width, text 1 has passed -->
+    <div class="parallax-img" data-speed="0.08" data-depth="3" style="--x: 58%; --y: 24%; --w: 280px;">
+      <div class="parallax-img-inner"><img src="images/hero-6.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.9" data-depth="1" style="--x: 5%; --y: 26%; --w: 240px;">
+      <div class="parallax-img-inner"><img src="images/hero-7.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.4" data-depth="2" style="--x: 70%; --y: 24%; --w: 260px;">
+      <div class="parallax-img-inner"><img src="images/hero-8.jpg" alt=""></div>
+    </div>
+
+    <!-- Mid (34-44%) — full width -->
+    <div class="parallax-img" data-speed="0.85" data-depth="1" style="--x: 2%; --y: 35%; --w: 200px;">
+      <div class="parallax-img-inner"><img src="images/hero-9.jpg" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.12" data-depth="3" style="--x: 28%; --y: 37%; --w: 300px;">
+      <div class="parallax-img-inner"><img src="images/hero-1.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.55" data-depth="2" style="--x: 60%; --y: 34%; --w: 190px;">
+      <div class="parallax-img-inner"><img src="images/hero-2.jpg" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="1.0" data-depth="1" style="--x: 82%; --y: 38%; --w: 200px;">
+      <div class="parallax-img-inner"><img src="images/hero-3.jpg" alt=""></div>
+    </div>
+
+    <!-- Mid-lower (46-56%) — full width -->
+    <div class="parallax-img" data-speed="0.48" data-depth="2" style="--x: 8%; --y: 47%; --w: 260px;">
+      <div class="parallax-img-inner"><img src="images/hero-4.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.1" data-depth="3" style="--x: 42%; --y: 50%; --w: 220px;">
+      <div class="parallax-img-inner"><img src="images/hero-5.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.88" data-depth="1" style="--x: 72%; --y: 48%; --w: 240px;">
+      <div class="parallax-img-inner"><img src="images/hero-6.png" alt=""></div>
+    </div>
+
+    <!-- Around text 2 (58-68%) — images on left side only -->
+    <div class="parallax-img" data-speed="0.42" data-depth="2" style="--x: 3%; --y: 60%; --w: 240px;">
+      <div class="parallax-img-inner"><img src="images/hero-7.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.92" data-depth="1" style="--x: 30%; --y: 63%; --w: 200px;">
+      <div class="parallax-img-inner"><img src="images/hero-8.jpg" alt=""></div>
+    </div>
+
+    <!-- Bottom area (72-85%) — full width -->
+    <div class="parallax-img" data-speed="0.15" data-depth="3" style="--x: 5%; --y: 74%; --w: 280px;">
+      <div class="parallax-img-inner"><img src="images/hero-9.jpg" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.95" data-depth="1" style="--x: 45%; --y: 76%; --w: 220px;">
+      <div class="parallax-img-inner"><img src="images/hero-1.png" alt=""></div>
+    </div>
+    <div class="parallax-img" data-speed="0.5" data-depth="2" style="--x: 75%; --y: 73%; --w: 240px;">
+      <div class="parallax-img-inner"><img src="images/hero-2.jpg" alt=""></div>
+    </div>
+
+    <!-- Text blocks -->
+    <div class="parallax-text parallax-text--1">
+      <h2>Turn fan moments into brand loyalty</h2>
+      <p>Capture unforgettable fan moments at your event and transform them into lasting digital memories.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">Book a Demo</a>
+        <a href="#" class="btn-secondary">Watch Demo</a>
+      </div>
+    </div>
+    <div class="parallax-text parallax-text--2">
+      <h2>Sed Ut Perspiciatis</h2>
+      <p>Unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: CONTENT BLOCK -->
+  <section class="content-block">
+    <div class="content-block__inner">
+      <h2 class="content-block__title">Volutpat Consequat</h2>
+      <p class="content-block__desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+
+      <div class="content-block__cards">
+        <div class="content-card">
+          <div class="content-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 class="content-card__title">Adipiscing Elit</h3>
+          <p class="content-card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
+        </div>
+        <div class="content-card">
+          <div class="content-card__icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="content-card__title">Tempor Incididunt</h3>
+          <p class="content-card__text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
+        </div>
+        <div class="content-card">
+          <div class="content-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3 class="content-card__title">Magna Aliqua</h3>
+          <p class="content-card__text">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: CARD FAN-OUT -->
+  <section class="card-fan">
+    <div class="card-fan__sticky">
+      <div class="card-fan__cards">
+        <div class="card-fan__slot card-fan__slot--1">
+          <div class="card-fan__card card-fan__card--1">
+            <div class="card-fan__card-inner"></div>
+          </div>
+        </div>
+        <div class="card-fan__slot card-fan__slot--2">
+          <div class="card-fan__card card-fan__card--2">
+            <div class="card-fan__card-inner"></div>
+          </div>
+        </div>
+        <div class="card-fan__slot card-fan__slot--3">
+          <div class="card-fan__card card-fan__card--3">
+            <div class="card-fan__card-inner"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-fan__captions">
+        <div class="card-fan__caption card-fan__caption--1">
+          <h3>Nemo Enim</h3>
+          <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+        </div>
+        <div class="card-fan__caption card-fan__caption--2">
+          <h3>Ipsam Voluptatem</h3>
+          <p>Consectetur adipisci velit, sed quia non numquam eius modi tempora.</p>
+        </div>
+        <div class="card-fan__caption card-fan__caption--3">
+          <h3>Sed Ut Perspiciatis</h3>
+          <p>Unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: PLACEHOLDER -->
+  <section class="placeholder-section">
+    <p class="placeholder-section__label">More coming soon</p>
+  </section>
+
+  <!-- GSAP + ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/animations.js?v=5"></script>
+</body>
+</html>
