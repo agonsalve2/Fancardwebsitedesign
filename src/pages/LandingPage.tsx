@@ -360,8 +360,11 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
       if (cloudRef.current) {
         const scale   = 1 + p * 2.4;
         const opacity = Math.max(0, 1 - p * 1.5);
-        const vpScale = Math.min(1, window.innerWidth / 1300);
+        const vpScale = window.innerWidth < 768
+          ? 0
+          : Math.min(1, window.innerWidth / 1300);
         cloudRef.current.style.transform = `scale(${scale * vpScale})`;
+        cloudRef.current.style.visibility = vpScale === 0 ? 'hidden' : 'visible';
         cloudRef.current.style.opacity   = String(opacity);
       }
 
@@ -588,14 +591,30 @@ function LayerSpread() {
 
   if (isMobile) {
     return (
-      <section style={{ background: C.white, padding: 'clamp(60px, 8vw, 120px) clamp(24px, 4vw, 60px)' }}>
-        <div style={{ maxWidth: 480, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 48 }}>
+      <section style={{ background: C.white, padding: 'clamp(60px, 8vw, 120px) 0' }}>
+        <div className="layer-scroll" style={{
+          display: 'flex',
+          overflowX: 'auto',
+          gap: 20,
+          paddingLeft: 'clamp(24px, 6vw, 60px)',
+          paddingRight: 'clamp(24px, 6vw, 60px)',
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+        } as React.CSSProperties}>
           {([layer1, layer2, layer3] as string[]).map((src, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div key={i} style={{
+              flexShrink: 0,
+              width: 'clamp(260px, 75vw, 340px)',
+              scrollSnapAlign: 'start',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 20,
+            }}>
               <img src={src} alt="" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8, boxShadow: '0 8px 32px rgba(0,0,0,0.10)' }} />
               <div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: C.dark, marginBottom: 8, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{LAYER_CAPTIONS[i].title}</div>
-                <p style={{ fontSize: 15, color: C.light, lineHeight: 1.6, margin: 0 }}>{LAYER_CAPTIONS[i].body}</p>
+                <div style={{ fontSize: 18, fontWeight: 700, color: C.dark, marginBottom: 8, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{LAYER_CAPTIONS[i].title}</div>
+                <p style={{ fontSize: 14, color: C.light, lineHeight: 1.6, margin: 0 }}>{LAYER_CAPTIONS[i].body}</p>
               </div>
             </div>
           ))}
@@ -1020,6 +1039,9 @@ export function LandingPage() {
         .btn-demo {
           overflow: hidden;
         }
+
+        /* ── Layer spread scroll ── */
+        .layer-scroll::-webkit-scrollbar { display: none; }
 
         /* ── Responsive ── */
         @media (max-width: 1024px) {
