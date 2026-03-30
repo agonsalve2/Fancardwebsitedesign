@@ -1173,6 +1173,8 @@ export function LandingPage() {
         .mobile-card-strip { display: none !important; }
         @media (max-width: 767px) {
           .mobile-card-strip { display: flex !important; }
+          .mobile-card-strip:first-child { margin-bottom: 50px; }
+          .mobile-card-strip:last-child { margin-top: 50px; }
           .hero-content { justify-content: space-between !important; padding: 32px 0 !important; }
         }
 
