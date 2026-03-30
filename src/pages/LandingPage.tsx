@@ -71,10 +71,6 @@ const STEPS = [
   { num: 'STEP 4', title: 'Build Your Fan Database', body: "Collect verified fan contact information and build a direct relationship with your most engaged audience.", img: hiwSlide4 },
 ];
 
-const TESTIMONIALS = [
-  { quote: "Fancard transformed how we capture fan moments at matches. We went from zero digital touchpoints to thousands of verified fan profiles after a single game.", role: 'Head of Fan Engagement', org: '[Club / Rights Holder]', initials: 'HE' },
-  { quote: "Our sponsors finally have proof of audience engagement. Fancard gave us data we could actually present in a post-event report — that's a game changer for renewals.", role: 'Commercial Director', org: '[Sports Organisation]', initials: 'CD' },
-];
 
 const FAQS = [
   { q: 'What is Fancard and how does it work?',                                        a: "Fancard is a campaign platform that lets sports clubs and event organisers create branded digital cards. Fans scan a QR code at the venue, instantly receive a personalised fancard, and share it online — capturing first-party engagement data at every step." },
@@ -122,6 +118,78 @@ const CLOUD = [
   { src: fc10,      x: 82,  y: 75,  w: 150, depth: 0.60 },
 ] as const;
 
+// ── Slide text (Book a Demo) ──────────────────────────────────────────────────
+
+function SlideText({ children }: { children: string }) {
+  const [hovered, setHovered] = useState(false);
+  const chars = children.split('');
+  const ease = '0.45s cubic-bezier(0.76, 0, 0.24, 1)';
+
+  return (
+    <span
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ display: 'inline-block', position: 'relative', verticalAlign: 'top' }}
+    >
+      {/* Original — exits through top, left → right */}
+      <span style={{ display: 'block' }}>
+        {chars.map((char, i) => (
+          <span key={i} style={{
+            display: 'inline-block',
+            transition: `transform ${ease}`,
+            transitionDelay: hovered ? `${i * 40}ms` : `${(chars.length - 1 - i) * 40}ms`,
+            transform: hovered ? 'translateY(-220%)' : 'translateY(0%)',
+          }}>
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </span>
+      {/* Ghost — enters from below, left → right */}
+      <span aria-hidden="true" style={{ position: 'absolute', inset: 0, display: 'block' }}>
+        {chars.map((char, i) => (
+          <span key={i} style={{
+            display: 'inline-block',
+            transition: `transform ${ease}`,
+            transitionDelay: hovered ? `${i * 40}ms` : `${(chars.length - 1 - i) * 40}ms`,
+            transform: hovered ? 'translateY(0%)' : 'translateY(220%)',
+          }}>
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+// ── Wave text ─────────────────────────────────────────────────────────────────
+
+function WaveText({ children }: { children: string }) {
+  const [hovered, setHovered] = useState(false);
+  const chars = children.split('');
+  return (
+    <span
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ display: 'inline', borderBottom: '1px solid currentColor', paddingBottom: 2 }}
+    >
+      {chars.map((char, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'inline-block',
+            transform: hovered ? 'translateY(-5px)' : 'translateY(0px)',
+            transition: hovered
+              ? `transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${i * 45}ms`
+              : `transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${(chars.length - 1 - i) * 45}ms`,
+          }}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function FaqItem({ item, index, isOpen, onToggle }: { item: typeof FAQS[0]; index: number; isOpen: boolean; onToggle: () => void }) {
@@ -132,7 +200,7 @@ function FaqItem({ item, index, isOpen, onToggle }: { item: typeof FAQS[0]; inde
         className="faq-header"
         style={{ display: 'flex', alignItems: 'center', gap: 20, cursor: 'pointer', userSelect: 'none' }}
       >
-        <span style={{ fontSize: 26, fontWeight: 700, color: C.dark, flex: 1, lineHeight: 1.4 }}>
+        <span style={{ fontSize: 'clamp(17px, 2.2vw, 26px)', fontWeight: 700, color: C.dark, flex: 1, lineHeight: 1.4 }}>
           {item.q}
         </span>
         <span style={{ fontSize: 44, fontWeight: 300, color: C.dark, flexShrink: 0, lineHeight: 1, transition: 'transform 0.4s ease', transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)', display: 'block' }}>
@@ -141,7 +209,7 @@ function FaqItem({ item, index, isOpen, onToggle }: { item: typeof FAQS[0]; inde
       </div>
       <div style={{ display: 'grid', gridTemplateRows: isOpen ? '1fr' : '0fr', transition: 'grid-template-rows 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
         <div style={{ overflow: 'hidden' }}>
-          <p className="faq-answer" style={{ fontSize: 18, color: C.mid, lineHeight: 1.7, margin: 0, maxWidth: '72%' }}>
+          <p className="faq-answer" style={{ fontSize: 'clamp(15px, 1.5vw, 18px)', color: C.mid, lineHeight: 1.7, margin: 0, maxWidth: '90%' }}>
             {item.a}
           </p>
         </div>
@@ -292,7 +360,8 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
       if (cloudRef.current) {
         const scale   = 1 + p * 2.4;
         const opacity = Math.max(0, 1 - p * 1.5);
-        cloudRef.current.style.transform = `scale(${scale})`;
+        const vpScale = Math.min(1, window.innerWidth / 1300);
+        cloudRef.current.style.transform = `scale(${scale * vpScale})`;
         cloudRef.current.style.opacity   = String(opacity);
       }
 
@@ -384,8 +453,8 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
           <h1 style={{ ...font, fontSize: 'clamp(36px, 4.2vw, 64px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-2px', color: C.dark, marginBottom: 24, maxWidth: 700 }}>The fastest way to turn live fan experience into online engagement</h1>
           <p style={{ fontSize: 17, lineHeight: 1.65, color: C.mid, marginBottom: 44, maxWidth: 500 }}>Fancard allows your audience to instantly share their moments online — boosting your brand's reach and sponsorship value.</p>
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button onClick={onDemo} style={{ ...font, background: 'transparent', border: 'none', color: C.dark, fontWeight: 500, fontSize: 15, cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 3 }}>Get in Touch</button>
-            <button onClick={onDemo} className="btn-demo" style={{ ...font, background: C.green, color: C.dark, fontWeight: 800, fontSize: 15, border: 'none', borderRadius: 8, padding: '14px 28px', cursor: 'pointer' }}>Book a Demo</button>
+            <button onClick={onDemo} className="btn-touch" style={{ ...font, background: 'transparent', border: 'none', color: C.dark, fontWeight: 500, fontSize: 15, cursor: 'pointer' }}><WaveText>Get in Touch</WaveText></button>
+            <button onClick={onDemo} className="btn-demo" style={{ ...font, background: C.green, color: C.dark, fontWeight: 800, fontSize: 15, border: 'none', borderRadius: 8, padding: '14px 28px', cursor: 'pointer' }}><SlideText>Book a Demo</SlideText></button>
           </div>
         </div>
       </div>
@@ -453,12 +522,19 @@ const LAYER_ROT_Y  = 30;
 const LAYER_CARD_H = Math.round(LAYER_CARD_W * 1400 / 1120); // 400px
 
 const LAYER_CAPTIONS = [
-  { title: 'Fan Identity Layer',    body: 'Personalised to each fan with their name, seat, and match details captured at the point of scan.' },
-  { title: 'Club & Sponsor Layer',  body: 'Your club branding and sponsor logos woven seamlessly into every card shared across social.' },
-  { title: 'Data Collection Layer', body: 'Every interaction feeds verified, opted-in fan profiles directly into your CRM in real time.' },
+  { title: 'Fancard',          body: 'Create a custom branded experience that fans want to share. Turn every selfie into a trackable digital touchpoint.' },
+  { title: 'The Experience',   body: 'Seamlessly integrate your brand into the match-day magic. Give fans the tools to capture the atmosphere while you capture the engagement.' },
+  { title: 'Data Collection',  body: 'Turn interactions into insights. Populate your CRM in real-time with verified, opted-in fan profiles and actionable data.' },
 ];
 
 function LayerSpread() {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1100);
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 1100);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const l1Ref  = useRef<HTMLDivElement>(null);
   const l2Ref  = useRef<HTMLDivElement>(null);
@@ -510,6 +586,24 @@ function LayerSpread() {
     willChange: 'transform, opacity',
   };
 
+  if (isMobile) {
+    return (
+      <section style={{ background: C.white, padding: 'clamp(60px, 8vw, 120px) clamp(24px, 4vw, 60px)' }}>
+        <div style={{ maxWidth: 480, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 48 }}>
+          {([layer1, layer2, layer3] as string[]).map((src, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <img src={src} alt="" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8, boxShadow: '0 8px 32px rgba(0,0,0,0.10)' }} />
+              <div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: C.dark, marginBottom: 8, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{LAYER_CAPTIONS[i].title}</div>
+                <p style={{ fontSize: 15, color: C.light, lineHeight: 1.6, margin: 0 }}>{LAYER_CAPTIONS[i].body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section style={{ background: C.white }}>
       <div ref={containerRef} style={{ position: 'relative', height: '350vh' }}>
@@ -560,6 +654,13 @@ function LayerSpread() {
 function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -586,9 +687,32 @@ function HowItWorks() {
 
   const inner: React.CSSProperties = { maxWidth: 1500, margin: '0 auto', padding: '0 clamp(24px, 4vw, 60px)' };
 
+  if (isMobile) {
+    return (
+      <section style={{ background: C.white, padding: 'clamp(60px, 8vw, 120px) 0' }}>
+        <div style={{ ...inner, textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '6px 18px', marginBottom: 14 }}>How It Works</div>
+          <h2 style={{ fontFamily: "'TikTok Sans', sans-serif", fontSize: 'clamp(26px, 6vw, 40px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.dark, marginTop: 14 }}>Easy set up. Instant results.</h2>
+        </div>
+        <div style={{ ...inner, display: 'flex', flexDirection: 'column', gap: 48 }}>
+          {STEPS.map((s, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <img src={s.img} alt={s.title} style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }} />
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' as const, color: C.green, marginBottom: 8 }}>{s.num}</div>
+                <div style={{ fontFamily: "'TikTok Sans', sans-serif", fontSize: 'clamp(22px, 5vw, 32px)', fontWeight: 800, color: C.dark, letterSpacing: '-0.5px', marginBottom: 12, lineHeight: 1.15 }}>{s.title}</div>
+                <p style={{ fontSize: 15, color: C.light, lineHeight: 1.7, margin: 0 }}>{s.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section style={{ background: C.white }}>
-      <div style={{ ...inner, textAlign: 'center', paddingTop: 200, paddingBottom: 20 }}>
+      <div style={{ ...inner, textAlign: 'center', paddingTop: 'clamp(32px, 4vw, 64px)', paddingBottom: 20 }}>
         <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '6px 18px', marginBottom: 14 }}>How It Works</div>
         <h2 style={{ fontFamily: "'TikTok Sans', sans-serif", fontSize: 'clamp(30px, 3.5vw, 48px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.dark, marginTop: 14 }}>Easy set up. Instant results.</h2>
       </div>
@@ -695,18 +819,18 @@ export function LandingPage() {
 
   const font: React.CSSProperties = { fontFamily: "'TikTok Sans', sans-serif" };
   const inner: React.CSSProperties = { maxWidth: 1500, margin: '0 auto', padding: '0 clamp(24px, 4vw, 60px)' };
-  const section = (bg: string): React.CSSProperties => ({ background: bg, padding: '200px 0' });
+  const section = (bg: string): React.CSSProperties => ({ background: bg, padding: 'clamp(80px, 10vw, 200px) 0' });
 
   return (
-    <div style={{ ...font, color: C.dark, background: '#1E1E1E' }}>
+    <div style={{ ...font, color: C.dark, background: '#2A2A2A' }}>
       {/* Content wrapper — sits above the sticky footer */}
       <div style={{ position: 'relative', zIndex: 1, background: C.bg, clipPath: 'inset(0 0 0 0 round 0px 0px 30px 30px)' }}>
       {/* ── STICKY NAV ──────────────────────────────────────────────────── */}
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', justifyContent: 'center', padding: '16px 20px', pointerEvents: 'none' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, height: 60, background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 14, padding: '8px 8px 8px 18px', pointerEvents: 'auto' }}>
-          <img src={logoBlack} alt="Fancard" style={{ height: 22, display: 'block', marginRight: 100 }} />
-          <button onClick={() => setDemoOpen(true)} style={{ ...font, background: 'transparent', border: 'none', color: C.dark, fontSize: 14, fontWeight: 500, cursor: 'pointer', padding: '8px 14px', borderRadius: 8, textDecoration: 'underline', textUnderlineOffset: 3 }}>Get in Touch</button>
-          <button onClick={() => setDemoOpen(true)} className="btn-demo" style={{ ...font, background: C.green, border: 'none', color: C.dark, fontSize: 13, fontWeight: 800, cursor: 'pointer', padding: '0 20px', borderRadius: 8, alignSelf: 'stretch' }}>Book a Demo</button>
+          <img src={logoBlack} alt="Fancard" style={{ height: 22, display: 'block', marginRight: 'clamp(12px, 6vw, 100px)' }} />
+          <button onClick={() => setDemoOpen(true)} className="nav-get-touch" style={{ ...font, background: 'transparent', border: 'none', color: C.dark, fontSize: 14, fontWeight: 500, cursor: 'pointer', padding: '8px 14px', borderRadius: 8 }}><WaveText>Get in Touch</WaveText></button>
+          <button onClick={() => setDemoOpen(true)} className="btn-demo" style={{ ...font, background: C.green, border: 'none', color: C.dark, fontSize: 13, fontWeight: 800, cursor: 'pointer', padding: '0 20px', borderRadius: 8, alignSelf: 'stretch' }}><SlideText>Book a Demo</SlideText></button>
         </div>
       </div>
 
@@ -716,15 +840,15 @@ export function LandingPage() {
       <HeroCloud onDemo={() => setDemoOpen(true)} />
 
       {/* ── ENGAGEMENT GAP — PROBLEMS ───────────────────────────────────── */}
-      <section style={{ background: 'transparent', padding: '0 20px 200px', marginTop: '-35vh', textAlign: 'center', position: 'relative', zIndex: 3 }}>
-        <div style={{ background: '#2A2A2A', borderRadius: 20, padding: '120px 0 200px', maxWidth: 1500, margin: '0 auto' }}>
+      <section style={{ background: 'transparent', padding: `0 20px clamp(80px, 12vw, 200px)`, marginTop: '-35vh', textAlign: 'center', position: 'relative', zIndex: 3 }}>
+        <div style={{ background: '#2A2A2A', borderRadius: 20, padding: 'clamp(60px, 8vw, 120px) 0 clamp(80px, 12vw, 200px)', maxWidth: 1500, margin: '0 auto' }}>
           <div style={{ ...inner }}>
             <div data-reveal style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#6FE866', border: '1px solid #6FE866', borderRadius: 4, padding: '6px 18px', marginBottom: 24 }}>The Engagement Gap</div>
-            <h2 data-reveal style={{ ...font, fontSize: 'clamp(30px, 3.5vw, 52px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.white, maxWidth: 780, margin: '0 auto 40px', lineHeight: 1.1 }}>This is your engagement problem</h2>
+            <h2 data-reveal style={{ ...font, fontSize: 'clamp(30px, 3.5vw, 52px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.white, maxWidth: 780, margin: '0 auto 40px', lineHeight: 1.1 }}>The Hidden Cost of Disconnected Fans</h2>
             <div style={{ textAlign: 'left' }}>
               <div className="four-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
                 {PROBLEMS.map((p, i) => (
-                  <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 28, display: 'flex', flexDirection: 'column', minHeight: 350 }}>
+                  <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 28, display: 'flex', flexDirection: 'column', minHeight: 'clamp(160px, 25vw, 350px)' }}>
                     <div style={{ fontSize: 22, fontWeight: 700, color: C.dark, marginBottom: 10, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{p.title}</div>
                     <p style={{ fontSize: 17, color: C.light, lineHeight: 1.6, margin: 0, flex: 1 }}>{p.body}</p>
                     <div style={{ width: 40, height: 40, border: `1.5px dashed ${C.border}`, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, color: C.light, fontSize: 16, alignSelf: 'flex-end' }}>✕</div>
@@ -737,7 +861,7 @@ export function LandingPage() {
       </section>
 
       {/* ── EACH PICTURE UNLOCKS VALUE ──────────────────────────────────── */}
-      <section style={{ ...section(C.bg), paddingTop: 100, textAlign: 'center' }}>
+      <section style={{ ...section(C.bg), paddingTop: 'clamp(40px, 6vw, 100px)', textAlign: 'center' }}>
         <div style={{ ...inner }}>
           <div data-reveal style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '5px 14px', marginBottom: 20 }}>Fancard is the solution</div>
           <h2 data-reveal style={{ ...font, fontSize: 'clamp(28px, 3.5vw, 48px)', fontWeight: 800, letterSpacing: '-1px', color: C.dark, marginBottom: 16 }}>Each Picture Taken Unlocks Value</h2>
@@ -745,7 +869,7 @@ export function LandingPage() {
         </div>
 
         {/* Card row — continuously scrolling marquee */}
-        <div style={{ width: '100%', overflow: 'hidden', margin: '80px 0', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)', maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)' }}>
+        <div style={{ width: '100%', overflow: 'hidden', margin: 'clamp(36px, 6vw, 80px) 0', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)', maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)' }}>
           <div className="marquee-track">
             {[...CARD_ROW, ...CARD_ROW].map((src, i) => (
               <img
@@ -762,7 +886,7 @@ export function LandingPage() {
         <div style={{ ...inner }}>
           <div className="four-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, textAlign: 'left' }}>
             {SOLUTIONS.map((s, i) => (
-              <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 28, display: 'flex', flexDirection: 'column', minHeight: 350 }}>
+              <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 28, display: 'flex', flexDirection: 'column', minHeight: 'clamp(160px, 25vw, 350px)' }}>
                 <div style={{ fontSize: 22, fontWeight: 700, color: C.dark, marginBottom: 10, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{s.title}</div>
                 <p style={{ fontSize: 17, color: C.light, lineHeight: 1.6, margin: 0, flex: 1 }}>{s.body}</p>
                 <div style={{ width: 40, height: 40, background: 'rgba(111,232,102,0.1)', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, alignSelf: 'flex-end', flexShrink: 0 }}>
@@ -780,30 +904,7 @@ export function LandingPage() {
       {/* ── HOW IT WORKS ────────────────────────────────────────────────── */}
       <HowItWorks />
 
-      {/* ── TESTIMONIALS ────────────────────────────────────────────────── */}
-      <section style={{ ...section(C.bg), textAlign: 'center' }}>
-        <div style={{ ...inner }}>
-          <div data-reveal style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '6px 18px' }}>Testimonials</div>
-          <h2 data-reveal style={{ ...font, fontSize: 'clamp(30px, 3.5vw, 48px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.dark, marginTop: 14, marginBottom: 48 }}>What our customers say</h2>
-          <div className="two-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, textAlign: 'left' }}>
-            {TESTIMONIALS.map((t, i) => (
-              <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 52, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ ...font, fontSize: 56, fontWeight: 800, color: C.green, lineHeight: 1, marginBottom: 24 }}>"</div>
-                <p style={{ fontSize: 23, color: C.mid, lineHeight: 1.65, marginBottom: 36, flex: 1 }}>"{t.quote}"</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 14, justifyContent: 'flex-end' }}>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: C.dark }}>{t.role}</div>
-                    <div style={{ fontSize: 14, color: C.light, marginTop: 2 }}>{t.org}</div>
-                  </div>
-                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: C.green, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: C.dark, flexShrink: 0 }}>{t.initials}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FAQ ─────────────────────────────────────────────────────────── */}
+{/* ── FAQ ─────────────────────────────────────────────────────────── */}
       <section style={{ ...section(C.white), textAlign: 'center' }}>
         <div style={{ ...inner }}>
           <h2 data-reveal style={{ ...font, fontSize: 'clamp(28px, 3.5vw, 46px)', fontWeight: 800, letterSpacing: '-1px', color: C.dark, marginBottom: 14 }}>Frequently Asked Questions</h2>
@@ -819,25 +920,25 @@ export function LandingPage() {
 
       {/* ── CTA ─────────────────────────────────────────────────────────── */}
       <section style={{ background: C.white, padding: '0 20px', textAlign: 'center' }}>
-        <div style={{ background: C.green, borderRadius: 20, padding: '200px 0', maxWidth: 1500, margin: '0 auto' }}>
+        <div style={{ background: C.green, borderRadius: 20, padding: 'clamp(80px, 12vw, 200px) 0', maxWidth: 1500, margin: '0 auto' }}>
           <div style={{ ...inner }}>
             <h2 data-reveal style={{ ...font, fontSize: 'clamp(30px, 3.5vw, 52px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.dark, maxWidth: 600, margin: '0 auto 16px', lineHeight: 1.1 }}>Ready to turn fans into reach?</h2>
             <p data-reveal style={{ fontSize: 17, color: 'rgba(0,0,0,0.5)', marginBottom: 44 }}>Book a short demo and see Fancard live with your event branding.</p>
             <div data-reveal style={{ display: 'flex', gap: 24, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-              <button onClick={() => setDemoOpen(true)} style={{ ...font, background: 'transparent', border: 'none', color: 'rgba(0,0,0,0.6)', padding: '16px 0', fontSize: 16, fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: 3, cursor: 'pointer' }}>Get in Touch</button>
-              <button onClick={() => setDemoOpen(true)} className="btn-demo" style={{ ...font, background: C.white, border: 'none', color: C.dark, padding: '14px 28px', fontSize: 15, borderRadius: 8, fontWeight: 800, cursor: 'pointer' }}>Book a Demo</button>
+              <button onClick={() => setDemoOpen(true)} className="btn-touch" style={{ ...font, background: 'transparent', border: 'none', color: 'rgba(0,0,0,0.6)', padding: '16px 0', fontSize: 16, fontWeight: 500, cursor: 'pointer' }}><WaveText>Get in Touch</WaveText></button>
+              <button onClick={() => setDemoOpen(true)} className="btn-demo" style={{ ...font, background: C.white, border: 'none', color: C.dark, padding: '14px 28px', fontSize: 15, borderRadius: 8, fontWeight: 800, cursor: 'pointer' }}><SlideText>Book a Demo</SlideText></button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Spacer — separates CTA from footer reveal */}
-      <div style={{ height: 200, background: C.white }} />
+      <div style={{ height: 'clamp(60px, 10vw, 200px)', background: C.white }} />
 
       </div>{/* end content wrapper */}
 
       {/* ── FOOTER — sticky, revealed as content scrolls past ─────────── */}
-      <footer style={{ background: '#1E1E1E', position: 'sticky', bottom: 0, zIndex: 0, overflow: 'hidden', height: 700 }}>
+      <footer style={{ background: '#2A2A2A', position: 'sticky', bottom: 0, zIndex: 0, overflow: 'hidden', height: 'clamp(350px, 45vw, 700px)' }}>
         {/* Top bar — copyright left, logo right */}
         <div style={{ ...inner, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 36, position: 'relative', zIndex: 2 }}>
           <span style={{ fontSize: 13, color: '#666666' }}>© 2026 Fancard. All rights reserved.</span>
@@ -915,14 +1016,21 @@ export function LandingPage() {
           padding-right: 30px;
         }
 
+        /* ── Button / link hover states ── */
+        .btn-demo {
+          overflow: hidden;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 1024px) {
           .four-grid { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 768px) {
-          .two-grid { grid-template-columns: 1fr !important; }
           .hiw-panel { grid-template-columns: 1fr !important; height: auto !important; position: relative !important; padding-top: 40px !important; padding-bottom: 40px !important; }
           .hiw-visual { display: none !important; }
+          .nav-get-touch { display: none !important; }
+          .faq-header { padding: 20px 16px !important; }
+          .faq-answer { padding-left: 16px !important; padding-right: 16px !important; padding-bottom: 20px !important; max-width: 100% !important; }
         }
         @media (max-width: 560px) {
           .four-grid { grid-template-columns: 1fr !important; }
