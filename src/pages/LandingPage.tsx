@@ -333,8 +333,6 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
   const cloudRef       = useRef<HTMLDivElement>(null);
   const contentRef     = useRef<HTMLDivElement>(null);
   const vignetteRef    = useRef<HTMLDivElement>(null);
-  const mobileTopRef   = useRef<HTMLDivElement>(null);
-  const mobileBottomRef= useRef<HTMLDivElement>(null);
   const cardRefs       = useRef<(HTMLDivElement | null)[]>([]);
   const mouse          = useRef({ x: 0, y: 0 });
   const scrollProg     = useRef(0);
@@ -373,11 +371,6 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
         cloudRef.current.style.visibility = vpScale === 0 ? 'hidden' : 'visible';
         cloudRef.current.style.opacity   = String(opacity);
       }
-
-      // Mobile card strips: fade with cloud
-      const stripOpacity = Math.max(0, 1 - p * 1.5);
-      if (mobileTopRef.current)    mobileTopRef.current.style.opacity    = String(stripOpacity);
-      if (mobileBottomRef.current) mobileBottomRef.current.style.opacity = String(stripOpacity);
 
       // Center content: fade + move upward
       if (contentRef.current) {
@@ -451,36 +444,6 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
           ))}
         </div>
 
-        {/* Mobile card strips — top & bottom, hidden on desktop via CSS */}
-        <div ref={mobileTopRef} className="mobile-card-strip" style={{
-          position: 'absolute', top: 0, left: 0, right: 0, zIndex: 3,
-          display: 'flex', justifyContent: 'center', gap: 12,
-          padding: '18px 0', pointerEvents: 'none',
-        }}>
-          {([fc1, fcAz, fc3, fc4] as string[]).map((src, i) => (
-            <img key={i} src={src} alt="" style={{
-              width: 110, borderRadius: 8,
-              boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
-              transform: `rotate(${[-4, 2, -2, 4][i]}deg) translateY(${[6, 0, 4, -2][i]}px)`,
-              flexShrink: 0,
-            }} />
-          ))}
-        </div>
-        <div ref={mobileBottomRef} className="mobile-card-strip" style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 3,
-          display: 'flex', justifyContent: 'center', gap: 12,
-          padding: '18px 0', pointerEvents: 'none',
-        }}>
-          {([fc8, fcSportsS, fcExample, fc10] as string[]).map((src, i) => (
-            <img key={i} src={src} alt="" style={{
-              width: 110, borderRadius: 8,
-              boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
-              transform: `rotate(${[3, -3, 2, -4][i]}deg) translateY(${[-4, 2, -2, 6][i]}px)`,
-              flexShrink: 0,
-            }} />
-          ))}
-        </div>
-
         {/* Soft radial vignette */}
         <div ref={vignetteRef} style={{
           position: 'absolute', inset: 0, zIndex: 5, pointerEvents: 'none',
@@ -488,17 +451,42 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
         }} />
 
         {/* Center content */}
-        <div ref={contentRef} style={{
+        <div ref={contentRef} className="hero-content" style={{
           position: 'absolute', inset: 0,
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          textAlign: 'center', padding: '0 clamp(24px, 4vw, 60px)', zIndex: 10,
+          textAlign: 'center', zIndex: 10,
         }}>
-          <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '5px 14px', marginBottom: 28 }}>Live Fan Engagement Platform</div>
-          <h1 style={{ ...font, fontSize: 'clamp(36px, 4.2vw, 64px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-2px', color: C.dark, marginBottom: 24, maxWidth: 700 }}>The fastest way to turn live fan experience into online engagement</h1>
-          <p style={{ fontSize: 17, lineHeight: 1.65, color: C.mid, marginBottom: 44, maxWidth: 500 }}>Fancard allows your audience to instantly share their moments online — boosting your brand's reach and sponsorship value.</p>
-          <div style={{ display: 'flex', gap: 14, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button onClick={onDemo} className="btn-touch" style={{ ...font, background: 'transparent', border: 'none', color: C.dark, fontWeight: 500, fontSize: 15, cursor: 'pointer' }}><WaveText>Get in Touch</WaveText></button>
-            <button onClick={onDemo} className="btn-demo" style={{ ...font, background: C.green, color: C.dark, fontWeight: 800, fontSize: 15, border: 'none', borderRadius: 8, padding: '14px 28px', cursor: 'pointer' }}><SlideText>Book a Demo</SlideText></button>
+          {/* Mobile top card strip */}
+          <div className="mobile-card-strip" style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: 12, padding: '0 12px', pointerEvents: 'none' }}>
+            {([fc1, fcAz, fc3, fc4] as string[]).map((src, i) => (
+              <img key={i} src={src} alt="" style={{
+                width: 110, borderRadius: 8, flexShrink: 0,
+                boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
+                transform: `rotate(${[-4, 2, -2, 4][i]}deg) translateY(${[6, 0, 4, -2][i]}px)`,
+              }} />
+            ))}
+          </div>
+
+          {/* Text block */}
+          <div style={{ padding: '0 clamp(24px, 4vw, 60px)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '5px 14px', marginBottom: 28 }}>Live Fan Engagement Platform</div>
+            <h1 style={{ ...font, fontSize: 'clamp(36px, 4.2vw, 64px)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-2px', color: C.dark, marginBottom: 24, maxWidth: 700 }}>The fastest way to turn live fan experience into online engagement</h1>
+            <p style={{ fontSize: 17, lineHeight: 1.65, color: C.mid, marginBottom: 44, maxWidth: 500 }}>Fancard allows your audience to instantly share their moments online — boosting your brand's reach and sponsorship value.</p>
+            <div style={{ display: 'flex', gap: 14, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button onClick={onDemo} className="btn-touch" style={{ ...font, background: 'transparent', border: 'none', color: C.dark, fontWeight: 500, fontSize: 15, cursor: 'pointer' }}><WaveText>Get in Touch</WaveText></button>
+              <button onClick={onDemo} className="btn-demo" style={{ ...font, background: C.green, color: C.dark, fontWeight: 800, fontSize: 15, border: 'none', borderRadius: 8, padding: '14px 28px', cursor: 'pointer' }}><SlideText>Book a Demo</SlideText></button>
+            </div>
+          </div>
+
+          {/* Mobile bottom card strip */}
+          <div className="mobile-card-strip" style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: 12, padding: '0 12px', pointerEvents: 'none' }}>
+            {([fc8, fcSportsS, fcExample, fc10] as string[]).map((src, i) => (
+              <img key={i} src={src} alt="" style={{
+                width: 110, borderRadius: 8, flexShrink: 0,
+                boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
+                transform: `rotate(${[3, -3, 2, -4][i]}deg) translateY(${[-4, 2, -2, 6][i]}px)`,
+              }} />
+            ))}
           </div>
         </div>
       </div>
@@ -1182,9 +1170,10 @@ export function LandingPage() {
         .layer-scroll::-webkit-scrollbar { display: none; }
 
         /* ── Mobile hero card strips ── */
-        .mobile-card-strip { display: none; }
+        .mobile-card-strip { display: none !important; }
         @media (max-width: 767px) {
-          .mobile-card-strip { display: flex; }
+          .mobile-card-strip { display: flex !important; }
+          .hero-content { justify-content: space-between !important; padding: 32px 0 !important; }
         }
 
         /* ── Responsive ── */
