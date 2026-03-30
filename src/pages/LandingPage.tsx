@@ -49,6 +49,10 @@ import layer1 from '../assets/layer-1.webp';
 import layer2 from '../assets/layer-2.webp';
 import layer3 from '../assets/layer-3.webp';
 
+// ── Block icons ───────────────────────────────────────────────────────────────
+import iconProblem  from '../assets/icon-problem.svg';
+import iconSolution from '../assets/icon-solution.svg';
+
 // ── Data ─────────────────────────────────────────────────────────────────────
 const PROBLEMS = [
   { title: 'Moments disappear after the event',       body: "Fans go home with no digital touchpoint — their energy and intent lost forever." },
@@ -324,14 +328,16 @@ function FooterCrowd() {
 // ── Hero Cloud ────────────────────────────────────────────────────────────────
 
 function HeroCloud({ onDemo }: { onDemo: () => void }) {
-  const spacerRef   = useRef<HTMLDivElement>(null);
-  const fixedRef    = useRef<HTMLDivElement>(null);
-  const cloudRef    = useRef<HTMLDivElement>(null);
-  const contentRef  = useRef<HTMLDivElement>(null);
-  const vignetteRef = useRef<HTMLDivElement>(null);
-  const cardRefs    = useRef<(HTMLDivElement | null)[]>([]);
-  const mouse       = useRef({ x: 0, y: 0 });
-  const scrollProg  = useRef(0);
+  const spacerRef      = useRef<HTMLDivElement>(null);
+  const fixedRef       = useRef<HTMLDivElement>(null);
+  const cloudRef       = useRef<HTMLDivElement>(null);
+  const contentRef     = useRef<HTMLDivElement>(null);
+  const vignetteRef    = useRef<HTMLDivElement>(null);
+  const mobileTopRef   = useRef<HTMLDivElement>(null);
+  const mobileBottomRef= useRef<HTMLDivElement>(null);
+  const cardRefs       = useRef<(HTMLDivElement | null)[]>([]);
+  const mouse          = useRef({ x: 0, y: 0 });
+  const scrollProg     = useRef(0);
 
   useEffect(() => {
     function apply() {
@@ -367,6 +373,11 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
         cloudRef.current.style.visibility = vpScale === 0 ? 'hidden' : 'visible';
         cloudRef.current.style.opacity   = String(opacity);
       }
+
+      // Mobile card strips: fade with cloud
+      const stripOpacity = Math.max(0, 1 - p * 1.5);
+      if (mobileTopRef.current)    mobileTopRef.current.style.opacity    = String(stripOpacity);
+      if (mobileBottomRef.current) mobileBottomRef.current.style.opacity = String(stripOpacity);
 
       // Center content: fade + move upward
       if (contentRef.current) {
@@ -437,6 +448,36 @@ function HeroCloud({ onDemo }: { onDemo: () => void }) {
             >
               <img src={card.src} alt="" style={{ width: '100%', height: 'auto', display: 'block', userSelect: 'none', pointerEvents: 'none' }} />
             </div>
+          ))}
+        </div>
+
+        {/* Mobile card strips — top & bottom, hidden on desktop via CSS */}
+        <div ref={mobileTopRef} className="mobile-card-strip" style={{
+          position: 'absolute', top: 0, left: 0, right: 0, zIndex: 3,
+          display: 'flex', justifyContent: 'center', gap: 12,
+          padding: '18px 0', pointerEvents: 'none',
+        }}>
+          {([fc1, fcAz, fc3, fc4] as string[]).map((src, i) => (
+            <img key={i} src={src} alt="" style={{
+              width: 110, borderRadius: 8,
+              boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
+              transform: `rotate(${[-4, 2, -2, 4][i]}deg) translateY(${[6, 0, 4, -2][i]}px)`,
+              flexShrink: 0,
+            }} />
+          ))}
+        </div>
+        <div ref={mobileBottomRef} className="mobile-card-strip" style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 3,
+          display: 'flex', justifyContent: 'center', gap: 12,
+          padding: '18px 0', pointerEvents: 'none',
+        }}>
+          {([fc8, fcSportsS, fcExample, fc10] as string[]).map((src, i) => (
+            <img key={i} src={src} alt="" style={{
+              width: 110, borderRadius: 8,
+              boxShadow: '0 4px 16px rgba(0,0,0,0.14)',
+              transform: `rotate(${[3, -3, 2, -4][i]}deg) translateY(${[-4, 2, -2, 6][i]}px)`,
+              flexShrink: 0,
+            }} />
           ))}
         </div>
 
@@ -532,11 +573,32 @@ const LAYER_CAPTIONS = [
 
 function LayerSpread() {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1100);
+  const [activeCard, setActiveCard] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 1100);
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    function onScroll() {
+      if (!el) return;
+      const idx = Math.round(el.scrollLeft / ((el.scrollWidth - el.clientWidth) / 2));
+      setActiveCard(Math.min(2, Math.max(0, idx)));
+    }
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [isMobile]);
+
+  function scrollToCard(i: number) {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: i * ((el.scrollWidth - el.clientWidth) / 2), behavior: 'smooth' });
+  }
 
   const containerRef = useRef<HTMLDivElement>(null);
   const l1Ref  = useRef<HTMLDivElement>(null);
@@ -592,21 +654,25 @@ function LayerSpread() {
   if (isMobile) {
     return (
       <section style={{ background: C.white, padding: 'clamp(60px, 8vw, 120px) 0' }}>
-        <div className="layer-scroll" style={{
-          display: 'flex',
-          overflowX: 'auto',
-          gap: 20,
-          paddingLeft: 'clamp(24px, 6vw, 60px)',
-          paddingRight: 'clamp(24px, 6vw, 60px)',
-          scrollSnapType: 'x mandatory',
-          WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none',
-        } as React.CSSProperties}>
+        <div
+          ref={scrollRef}
+          className="layer-scroll"
+          style={{
+            display: 'flex',
+            overflowX: 'auto',
+            gap: 20,
+            paddingLeft:  'calc((100vw - clamp(260px, 75vw, 340px)) / 2)',
+            paddingRight: 'calc((100vw - clamp(260px, 75vw, 340px)) / 2)',
+            scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+          } as React.CSSProperties}
+        >
           {([layer1, layer2, layer3] as string[]).map((src, i) => (
             <div key={i} style={{
               flexShrink: 0,
               width: 'clamp(260px, 75vw, 340px)',
-              scrollSnapAlign: 'start',
+              scrollSnapAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
               gap: 20,
@@ -617,6 +683,23 @@ function LayerSpread() {
                 <p style={{ fontSize: 14, color: C.light, lineHeight: 1.6, margin: 0 }}>{LAYER_CAPTIONS[i].body}</p>
               </div>
             </div>
+          ))}
+        </div>
+        {/* Dot navigation */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 28 }}>
+          {[0, 1, 2].map(i => (
+            <div
+              key={i}
+              onClick={() => scrollToCard(i)}
+              style={{
+                width: activeCard === i ? 20 : 6,
+                height: 6,
+                borderRadius: 999,
+                background: activeCard === i ? C.dark : '#BBBBBB',
+                transition: 'width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s ease',
+                cursor: 'pointer',
+              }}
+            />
           ))}
         </div>
       </section>
@@ -671,8 +754,10 @@ function LayerSpread() {
 // ── How It Works Sticky Section ───────────────────────────────────────────────
 
 function HowItWorks() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef  = useRef<HTMLDivElement>(null);
+  const hScrollRef    = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState(0);
+  const [mobileStep, setMobileStep] = useState(0);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   useEffect(() => {
@@ -680,6 +765,24 @@ function HowItWorks() {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  useEffect(() => {
+    const el = hScrollRef.current;
+    if (!el) return;
+    function onScroll() {
+      if (!el) return;
+      const idx = Math.round(el.scrollLeft / ((el.scrollWidth - el.clientWidth) / (STEPS.length - 1)));
+      setMobileStep(Math.min(STEPS.length - 1, Math.max(0, idx)));
+    }
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [isMobile]);
+
+  function scrollToStep(i: number) {
+    const el = hScrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: i * ((el.scrollWidth - el.clientWidth) / (STEPS.length - 1)), behavior: 'smooth' });
+  }
 
   useEffect(() => {
     function onScroll() {
@@ -709,20 +812,57 @@ function HowItWorks() {
   if (isMobile) {
     return (
       <section style={{ background: C.white, padding: 'clamp(60px, 8vw, 120px) 0' }}>
-        <div style={{ ...inner, textAlign: 'center', marginBottom: 48 }}>
+        <div style={{ textAlign: 'center', marginBottom: 36, padding: '0 clamp(24px, 6vw, 60px)' }}>
           <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.green, border: `1px solid ${C.green}`, borderRadius: 4, padding: '6px 18px', marginBottom: 14 }}>How It Works</div>
           <h2 style={{ fontFamily: "'TikTok Sans', sans-serif", fontSize: 'clamp(26px, 6vw, 40px)', fontWeight: 800, letterSpacing: '-1.5px', color: C.dark, marginTop: 14 }}>Easy set up. Instant results.</h2>
         </div>
-        <div style={{ ...inner, display: 'flex', flexDirection: 'column', gap: 48 }}>
+        <div
+          ref={hScrollRef}
+          className="layer-scroll"
+          style={{
+            display: 'flex',
+            overflowX: 'auto',
+            gap: 20,
+            paddingLeft:  'calc((100vw - clamp(260px, 75vw, 340px)) / 2)',
+            paddingRight: 'calc((100vw - clamp(260px, 75vw, 340px)) / 2)',
+            scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+          } as React.CSSProperties}
+        >
           {STEPS.map((s, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div key={i} style={{
+              flexShrink: 0,
+              width: 'clamp(260px, 75vw, 340px)',
+              scrollSnapAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 16,
+            }}>
               <img src={s.img} alt={s.title} style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }} />
               <div>
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' as const, color: C.green, marginBottom: 8 }}>{s.num}</div>
-                <div style={{ fontFamily: "'TikTok Sans', sans-serif", fontSize: 'clamp(22px, 5vw, 32px)', fontWeight: 800, color: C.dark, letterSpacing: '-0.5px', marginBottom: 12, lineHeight: 1.15 }}>{s.title}</div>
-                <p style={{ fontSize: 15, color: C.light, lineHeight: 1.7, margin: 0 }}>{s.body}</p>
+                <div style={{ fontFamily: "'TikTok Sans', sans-serif", fontSize: 'clamp(20px, 5vw, 28px)', fontWeight: 800, color: C.dark, letterSpacing: '-0.5px', marginBottom: 10, lineHeight: 1.15 }}>{s.title}</div>
+                <p style={{ fontSize: 14, color: C.light, lineHeight: 1.7, margin: 0 }}>{s.body}</p>
               </div>
             </div>
+          ))}
+        </div>
+        {/* Dot navigation */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 28 }}>
+          {STEPS.map((_, i) => (
+            <div
+              key={i}
+              onClick={() => scrollToStep(i)}
+              style={{
+                width: mobileStep === i ? 20 : 6,
+                height: 6,
+                borderRadius: 999,
+                background: mobileStep === i ? C.dark : '#BBBBBB',
+                transition: 'width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s ease',
+                cursor: 'pointer',
+              }}
+            />
           ))}
         </div>
       </section>
@@ -870,7 +1010,7 @@ export function LandingPage() {
                   <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 28, display: 'flex', flexDirection: 'column', minHeight: 'clamp(160px, 25vw, 350px)' }}>
                     <div style={{ fontSize: 22, fontWeight: 700, color: C.dark, marginBottom: 10, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{p.title}</div>
                     <p style={{ fontSize: 17, color: C.light, lineHeight: 1.6, margin: 0, flex: 1 }}>{p.body}</p>
-                    <div style={{ width: 40, height: 40, border: `1.5px dashed ${C.border}`, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, color: C.light, fontSize: 16, alignSelf: 'flex-end' }}>✕</div>
+                    <img src={iconProblem} alt="" style={{ width: 50, height: 50, display: 'block', marginTop: 20, alignSelf: 'flex-end' }} />
                   </div>
                 ))}
               </div>
@@ -908,9 +1048,7 @@ export function LandingPage() {
               <div data-reveal key={i} style={{ background: C.white, borderRadius: 6, padding: 28, display: 'flex', flexDirection: 'column', minHeight: 'clamp(160px, 25vw, 350px)' }}>
                 <div style={{ fontSize: 22, fontWeight: 700, color: C.dark, marginBottom: 10, lineHeight: 1.3, letterSpacing: '-0.02em' }}>{s.title}</div>
                 <p style={{ fontSize: 17, color: C.light, lineHeight: 1.6, margin: 0, flex: 1 }}>{s.body}</p>
-                <div style={{ width: 40, height: 40, background: 'rgba(111,232,102,0.1)', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, alignSelf: 'flex-end', flexShrink: 0 }}>
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke={C.green} strokeWidth="1.5"/><path d="M5 8.5L7 10.5L11 6.5" stroke={C.green} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </div>
+                <img src={iconSolution} alt="" style={{ width: 50, height: 50, display: 'block', marginTop: 20, alignSelf: 'flex-end', flexShrink: 0 }} />
               </div>
             ))}
           </div>
@@ -1042,6 +1180,12 @@ export function LandingPage() {
 
         /* ── Layer spread scroll ── */
         .layer-scroll::-webkit-scrollbar { display: none; }
+
+        /* ── Mobile hero card strips ── */
+        .mobile-card-strip { display: none; }
+        @media (max-width: 767px) {
+          .mobile-card-strip { display: flex; }
+        }
 
         /* ── Responsive ── */
         @media (max-width: 1024px) {
